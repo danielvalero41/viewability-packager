@@ -1,0 +1,41 @@
+@import "/src/variables.scss";
+
+.container {
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  width: 230px;
+}
+
+.option {
+  display: flex;
+  background: #ebe9ef;
+  width: 200px;
+  border-radius: 0px 10px 10px 0;
+  color: #707070;
+  cursor: pointer;
+}
+
+.selected {
+  width: 15px;
+  background: #1465b7cc;
+}
+
+.void {
+  width: 15px;
+}
+
+.active {
+  width: 15px;
+  background: #40bc5a;
+}
+
+.archived {
+  width: 15px;
+  background: #fbc011;
+}
+
+.inactive {
+  width: 15px;
+  background: #ef2a2e;
+}

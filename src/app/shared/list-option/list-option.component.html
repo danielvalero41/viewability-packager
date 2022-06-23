@@ -1,0 +1,21 @@
+<div class="container">
+  <div
+    (click)="selected(i)"
+    class="option mb-1"
+    *ngFor="let item of listAd; let i = index"
+  >
+    <div [ngClass]="item.active === true ? 'selected' : 'void'"></div>
+    <div
+      [ngClass]="{
+        active: item.status === 'ACTIVE',
+        archived: item.status === 'ARCHIVED',
+        inactive: item.status === 'INACTIVE'
+      }"
+    ></div>
+    <div class="mt-1 mb-1 ml-1">
+      <p>{{ item.id }}</p>
+      <p>{{ item.name }}</p>
+      <p class="text-bold">{{ item.status }}</p>
+    </div>
+  </div>
+</div>
