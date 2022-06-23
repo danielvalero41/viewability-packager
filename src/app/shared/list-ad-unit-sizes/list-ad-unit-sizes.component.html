@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="option" *ngFor="let item of listAd">
+    <div class="title">
+      <div class="text-bold text-primary text-medium">
+        {{ item.fullDisplayString }}
+      </div>
+      <div class="container-icon text-primary">
+        <i class="fas fa-check-circle"></i>
+      </div>
+    </div>
+    <div class="mt-1">
+      <p>isAspectRatio: {{ item.size.isAspectRatio }}</p>
+      <p>environmentType: "{{ item.environmentType }}"</p>
+      <p>fullDisplayString: {{ item.fullDisplayString }}</p>
+    </div>
+  </div>
+</div>
