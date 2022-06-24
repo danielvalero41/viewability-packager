@@ -1,0 +1,97 @@
+@import "/src/variables.scss";
+
+.container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.section {
+  color: #fff;
+  border-bottom: 3px solid #fff;
+  font-weight: bold;
+}
+
+.button-option {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  max-width: 315px;
+  color: #fff;
+  border-radius: 30px;
+  border: 2px solid #fff;
+  padding: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  i {
+    background: #fff;
+    border-radius: 40px;
+    color: #281545;
+    font-size: 25px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.section-status {
+  display: flex;
+  gap: 5px;
+
+  .item {
+    background: #ebe9ef;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 150px;
+    height: 50px;
+    font-weight: bold;
+
+    .count1 {
+      border: 2px solid $secondary;
+      border-radius: 20px;
+      color: $secondary;
+      padding: 5px;
+      width: 40px;
+      text-align: center;
+    }
+
+    .count2 {
+      border: 2px solid $danger;
+      border-radius: 20px;
+      color: $danger;
+      padding: 5px;
+      width: 40px;
+      text-align: center;
+    }
+
+    .count3 {
+      border: 2px solid $success;
+      border-radius: 20px;
+      color: $success;
+      padding: 5px;
+      width: 40px;
+      text-align: center;
+    }
+
+    .count4 {
+      border: 2px solid $warning;
+      border-radius: 20px;
+      color: $warning;
+      padding: 5px;
+      width: 40px;
+      text-align: center;
+    }
+
+    .count5 {
+      border: 2px solid $primary;
+      border-radius: 20px;
+      color: $primary;
+      padding: 5px;
+      width: 40px;
+      text-align: center;
+    }
+  }
+}

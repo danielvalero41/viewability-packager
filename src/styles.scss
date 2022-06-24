@@ -18,6 +18,22 @@ p {
   color: $primary;
 }
 
+.text-danger {
+  color: $danger;
+}
+
+.text-success {
+  color: $success;
+}
+
+.text-warning {
+  color: $warning;
+}
+
+.text-white {
+  color: #fff;
+}
+
 .text-bold {
   font-weight: bold;
 }
