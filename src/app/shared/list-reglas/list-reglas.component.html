@@ -1,0 +1,11 @@
+<div class="container">
+  <div class="option" *ngFor="let item of listRules">
+    <div class="title">
+      <p>Regla de</p>
+      <i class="fas fa-check-circle"></i>
+    </div>
+    <div class="text-primary text-bold">
+      {{ item.desde }} a {{ item.hasta }}
+    </div>
+  </div>
+</div>
