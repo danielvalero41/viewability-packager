@@ -1,12 +1,20 @@
 @import "/src/variables.scss";
 
-.container {
+.container-normal {
   display: flex;
-
   gap: 30px;
   flex-wrap: wrap;
   overflow-y: scroll;
   height: 338px;
+  scroll-behavior: smooth;
+}
+
+.container-modal {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+  overflow-y: scroll;
+  height: 250px;
   scroll-behavior: smooth;
 }
 

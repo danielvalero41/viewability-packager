@@ -6,11 +6,23 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./ad-units.component.scss'],
 })
 export class AdUnitsComponent implements OnInit {
+  isVisibleEdit: boolean = false;
+  switchValue: boolean;
+  isAddAdUnits: boolean = false;
   constructor() {}
 
   ngOnInit(): void {}
 
-  editAd() {
+  addAdUnit() {
     console.log('edit ad');
+    this.isVisibleEdit = true;
+  }
+
+  closeModal() {
+    this.isVisibleEdit = false;
+  }
+
+  createAdUnit() {
+    this.isAddAdUnits = true;
   }
 }

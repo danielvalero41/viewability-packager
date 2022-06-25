@@ -25,6 +25,15 @@ nz-select {
   width: 280px;
 }
 
-.editAd {
+.img-editAd {
   cursor: pointer;
+}
+
+.container-modal {
+  .close-modal {
+    i {
+      font-size: 20px;
+      color: #999999;
+    }
+  }
 }

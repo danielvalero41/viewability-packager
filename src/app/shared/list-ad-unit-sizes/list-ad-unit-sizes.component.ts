@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'list-ad-unit-sizes',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./list-ad-unit-sizes.component.scss'],
 })
 export class ListAdUnitSizesComponent implements OnInit {
+  @Input() isModal: boolean;
+
   listAd = [
     {
       size: {

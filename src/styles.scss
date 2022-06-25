@@ -180,4 +180,12 @@ p {
 .link {
   color: $primary;
   text-decoration: underline;
+  cursor: pointer;
+}
+
+//MODALES
+
+.ant-modal-content {
+  border-radius: 12px;
+  // margin: 0 25px;
 }

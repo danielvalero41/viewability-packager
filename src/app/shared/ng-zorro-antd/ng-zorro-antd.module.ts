@@ -5,6 +5,7 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { NzSwitchModule } from 'ng-zorro-antd/switch';
 
 @NgModule({
   declarations: [],
@@ -15,6 +16,7 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
     NzModalModule,
     NzSelectModule,
     NzDatePickerModule,
+    NzSwitchModule,
   ],
 })
 export class NgZorroAntdModule {}

@@ -1,4 +1,9 @@
-<div class="container">
+<div
+  [ngClass]="{
+    'container-normal': isModal === false,
+    'container-modal': isModal === true
+  }"
+>
   <div class="option" *ngFor="let item of listAd">
     <div class="title">
       <div class="text-bold text-primary text-medium">
