@@ -154,7 +154,7 @@
         nzGutter="28"
       >
         <div nz-col class="gutter-row">
-          <p class="link">Cancelar</p>
+          <p (click)="cancelAddAdUnit()" class="link">Cancelar</p>
         </div>
         <div nz-col class="gutter-row">
           <button class="btn btn-primary">guardar</button>
@@ -167,7 +167,7 @@
 <!-- MODALES -->
 
 <nz-modal
-  [(nzVisible)]="isVisibleEdit"
+  [(nzVisible)]="isVisible"
   [nzCloseIcon]="closeIcon"
   [nzCancelText]="null"
   [nzOkText]="null"
