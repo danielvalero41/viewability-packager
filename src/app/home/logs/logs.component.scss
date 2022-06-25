@@ -1,0 +1,21 @@
+@import "/src/variables.scss";
+.container {
+  background: #fff;
+  padding: 30px 50px;
+  border-radius: 20px;
+  min-height: 450px;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.content {
+  padding: 20px 10px;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  border: 1px solid #70707080;
+  border-radius: 10px 10px;
+  opacity: 1;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+}

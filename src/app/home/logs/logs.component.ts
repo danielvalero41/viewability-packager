@@ -3,13 +3,14 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-logs',
   templateUrl: './logs.component.html',
-  styleUrls: ['./logs.component.scss']
+  styleUrls: ['./logs.component.scss'],
 })
 export class LogsComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
+  onChange(result: Date): void {
+    console.log('onChange: ', result);
   }
-
 }
