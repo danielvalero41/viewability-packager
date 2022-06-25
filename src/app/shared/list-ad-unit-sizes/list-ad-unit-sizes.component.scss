@@ -9,6 +9,24 @@
   scroll-behavior: smooth;
 }
 
+.container-normal::-webkit-scrollbar-track {
+  padding: 2px 0;
+  background-color: #d4d4d4;
+}
+
+.container-normal::-webkit-scrollbar {
+  width: 20px;
+}
+
+.container-normal::-webkit-scrollbar-thumb {
+  border-radius: 12px;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #afafaf;
+  border: 3px solid #d4d4d4;
+}
+
+////////////////////////////////////////
+
 .container-modal {
   display: flex;
   gap: 30px;
@@ -17,6 +35,24 @@
   height: 250px;
   scroll-behavior: smooth;
 }
+
+.container-modal::-webkit-scrollbar-track {
+  padding: 2px 0;
+  background-color: #d4d4d4;
+}
+
+.container-modal::-webkit-scrollbar {
+  width: 20px;
+}
+
+.container-modal::-webkit-scrollbar-thumb {
+  border-radius: 12px;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #afafaf;
+  border: 3px solid #d4d4d4;
+}
+
+/////////////////////////////////////
 
 .option {
   width: 245px;
