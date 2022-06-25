@@ -1,1 +1,97 @@
-<p>ad-units works!</p>
+<div class="container">
+  <div>
+    <list-option></list-option>
+  </div>
+  <div class="main">
+    <div
+      nz-row
+      nzAlign="middle"
+      nzGutter="23"
+      nzJustify="space-between"
+      style="width: 100%"
+    >
+      <div nz-col nzSpan="16" class="gutter-row">
+        <div nz-row nzAlign="middle" class="container-section">
+          <div nz-col nzSpan="10" class="gutter-row">
+            <p class="text-primary">
+              <span class="text-bold">id</span>:12312156
+            </p>
+            <p class="text-primary">
+              <span class="text-bold">adUnitCode</span>: AZD-AztecaUno
+            </p>
+          </div>
+          <div nz-col nzSpan="12" class="gutter-row">
+            <p class="text-primary">
+              <span class="text-bold">status</span>:Active
+            </p>
+            <p class="text-primary">
+              <span class="text-bold">última modificación</span>: 29/07/2021
+            </p>
+          </div>
+        </div>
+      </div>
+      <div nz-col nzSpan="8" class="gutter-row text-center">
+        <button class="btn btn-primary">agregar AdUnits</button>
+      </div>
+    </div>
+
+    <div nz-row nzAlign="middle" nzGutter="23" class="mt-4">
+      <div nz-col class="gutter-row" nzSpan="8">
+        <label class="text-bold text-primary">TargetWindow</label>
+        <nz-select nzSize="large" nzPlaceHolder="">
+          <nz-option nzValue="1" nzLabel="Opción 1"></nz-option>
+          <nz-option nzValue="2" nzLabel="Opción 2"></nz-option>
+          <nz-option nzValue="3" nzLabel="Opción 3"></nz-option>
+          <nz-option nzValue="4" nzLabel="Opción 4"></nz-option>
+          <nz-option nzValue="5" nzLabel="Opción 5"></nz-option>
+        </nz-select>
+      </div>
+      <div nz-col class="gutter-row" nzSpan="8">
+        <label class="text-bold text-primary">Status</label>
+        <nz-select nzSize="large" nzPlaceHolder="">
+          <nz-option nzValue="1" nzLabel="Opción 1"></nz-option>
+          <nz-option nzValue="2" nzLabel="Opción 2"></nz-option>
+          <nz-option nzValue="3" nzLabel="Opción 3"></nz-option>
+          <nz-option nzValue="4" nzLabel="Opción 4"></nz-option>
+          <nz-option nzValue="5" nzLabel="Opción 5"></nz-option>
+        </nz-select>
+      </div>
+      <div nz-col class="gutter-row" nzSpan="8">
+        <label class="text-bold text-fade">ParentId</label>
+        <input nz-input nzSize="large" [disabled]="true" placeholder="" />
+      </div>
+    </div>
+
+    <div nz-row nzAlign="middle" class="mt-4">
+      <div nz-col nzSpan="24">
+        <label class="text-primary"
+          ><span class="text-bold">Descripción</span> (opcional)</label
+        >
+        <input nz-input nzSize="large" placeholder="Migración CMS 2019" />
+      </div>
+    </div>
+
+    <div nz-row nzAlign="middle" class="mt-4 text-primary text-bold">
+      <p class="mr-2">AdUnitdSize</p>
+      <img
+        class="editAd"
+        (click)="editAd()"
+        src="./assets/img/pencil.svg"
+        alt=""
+      />
+    </div>
+
+    <div class="mt-3">
+      <list-ad-unit-sizes></list-ad-unit-sizes>
+    </div>
+
+    <div class="mt-3" nz-row nzAlign="middle" nzJustify="space-around">
+      <div nz-col>
+        <p class="link">Cancelar</p>
+      </div>
+      <div nz-col>
+        <button class="btn btn-primary">guardar</button>
+      </div>
+    </div>
+  </div>
+</div>

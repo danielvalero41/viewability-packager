@@ -73,6 +73,50 @@ export class ListAdUnitSizesComponent implements OnInit {
       fullDisplayString: '300x250',
       isAudio: false,
     },
+    {
+      size: {
+        width: 300,
+        height: 250,
+        isAspectRatio: false,
+      },
+      environmentType: 'BROWSER',
+      companions: [],
+      fullDisplayString: '300x250',
+      isAudio: false,
+    },
+    {
+      size: {
+        width: 300,
+        height: 250,
+        isAspectRatio: false,
+      },
+      environmentType: 'BROWSER',
+      companions: [],
+      fullDisplayString: '300x250',
+      isAudio: false,
+    },
+    {
+      size: {
+        width: 300,
+        height: 250,
+        isAspectRatio: false,
+      },
+      environmentType: 'BROWSER',
+      companions: [],
+      fullDisplayString: '300x250',
+      isAudio: false,
+    },
+    {
+      size: {
+        width: 300,
+        height: 250,
+        isAspectRatio: false,
+      },
+      environmentType: 'BROWSER',
+      companions: [],
+      fullDisplayString: '300x250',
+      isAudio: false,
+    },
   ];
 
   constructor() {}

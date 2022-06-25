@@ -5,6 +5,7 @@ body {
   font-size: 16px;
   margin: 0;
   background-color: #281545;
+  padding-top: 10px;
 }
 
 p {
@@ -16,6 +17,10 @@ p {
 
 .text-primary {
   color: $primary;
+}
+
+.text-fade {
+  color: #898989;
 }
 
 .text-danger {
@@ -150,10 +155,9 @@ p {
 //Botones
 .btn {
   cursor: pointer;
-  height: 50px;
-  // max-width: 196px;
-  padding: 0px 30px;
-  border-radius: 30px;
+  height: 45px;
+  padding: 0px 40px;
+  border-radius: 15px;
   border: 2px solid;
   font-weight: bold;
   text-transform: uppercase;

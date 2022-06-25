@@ -3,13 +3,14 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-ad-units',
   templateUrl: './ad-units.component.html',
-  styleUrls: ['./ad-units.component.scss']
+  styleUrls: ['./ad-units.component.scss'],
 })
 export class AdUnitsComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
+  editAd() {
+    console.log('edit ad');
   }
-
 }
