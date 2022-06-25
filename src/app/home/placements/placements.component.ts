@@ -3,13 +3,12 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-placements',
   templateUrl: './placements.component.html',
-  styleUrls: ['./placements.component.scss']
+  styleUrls: ['./placements.component.scss'],
 })
 export class PlacementsComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
-  }
-
+  editPlacements() {}
 }
