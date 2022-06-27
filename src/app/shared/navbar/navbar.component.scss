@@ -31,6 +31,9 @@
 
     .item {
       cursor: pointer;
+      &.selected {
+        color: #1465b7;
+      }
       a {
         color: #707070;
         text-decoration: none;

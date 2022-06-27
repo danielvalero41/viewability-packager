@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ApiAdManagerService } from 'src/app/home/services/api-ad-manager.service';
 
 @Component({
   selector: 'navbar',
@@ -7,11 +8,17 @@ import { Router } from '@angular/router';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
-  constructor(public router: Router) {}
+  optionSelected: string;
+
+  constructor(
+    public router: Router,
+    public apiAdManager: ApiAdManagerService
+  ) {}
 
   ngOnInit(): void {}
 
   toNavigate(link) {
+    this.optionSelected = link;
     this.router.navigate([link]);
   }
 }
