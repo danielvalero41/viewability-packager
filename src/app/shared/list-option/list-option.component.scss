@@ -7,6 +7,24 @@
   width: 230px;
 }
 
+.container::-webkit-scrollbar-track {
+  padding: 2px 0;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.container::-webkit-scrollbar {
+  width: 10px;
+}
+
+.container::-webkit-scrollbar-thumb {
+  border-radius: 12px;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #ffff;
+  //  border: 3px solid #d4d4d4;
+}
+
+/////////////////////////////////////
+
 .option {
   display: flex;
   background: #ebe9ef;
@@ -14,6 +32,9 @@
   border-radius: 0px 10px 10px 0;
   color: #707070;
   cursor: pointer;
+  &.option-selected {
+    border: 2px solid #3f80c2;
+  }
 }
 
 .selected {
