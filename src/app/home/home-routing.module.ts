@@ -12,9 +12,14 @@ const routes: Routes = [
     component: HomeComponent,
     children: [
       {
+        path: '',
+        redirectTo: 'principal',
+      },
+      {
         path: 'principal',
         component: PrincipalComponent,
       },
+
       {
         path: 'placements',
         component: PlacementsComponent,

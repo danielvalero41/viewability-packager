@@ -4,13 +4,18 @@
     'container-modal': isModal === true
   }"
 >
-  <div class="option" *ngFor="let item of listAd">
+  <div class="option" *ngFor="let item of listSelected; let i = index">
     <div class="title">
       <div class="text-bold text-primary text-medium">
         {{ item.fullDisplayString }}
       </div>
-      <div class="container-icon text-primary">
-        <i class="fas fa-check-circle"></i>
+      <div
+        (click)="activeAd(i)"
+        [ngClass]="{ notActiveAd: isModal === false }"
+        class="container-icon text-primary"
+      >
+        <i *ngIf="item.selected" class="fas fa-check-circle"></i>
+        <i *ngIf="!item.selected" class="far fa-square"></i>
       </div>
     </div>
     <div class="mt-1">

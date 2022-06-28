@@ -15,7 +15,10 @@ export class NavbarComponent implements OnInit {
     public apiAdManager: ApiAdManagerService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    let route = this.router.url.split('/');
+    this.optionSelected = route[1];
+  }
 
   toNavigate(link) {
     this.optionSelected = link;

@@ -10,4 +10,6 @@ export class PrincipalComponent implements OnInit {
   constructor(public apiAdManager: ApiAdManagerService) {}
 
   ngOnInit(): void {}
+
+  configReport() {}
 }

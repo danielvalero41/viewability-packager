@@ -1,8 +1,19 @@
 <div class="container">
-  <div class="option" *ngFor="let item of listRules">
+  <div
+    class="option"
+    [ngClass]="{ optionWidth: isModal === false }"
+    *ngFor="let item of listRules; let i = index"
+  >
     <div class="title">
       <p>Regla de</p>
-      <i class="fas fa-check-circle"></i>
+      <div
+        (click)="activeRule(i)"
+        class="container-icon"
+        [ngClass]="{ notActiveAd: isModal === false }"
+      >
+        <i *ngIf="item.selected" class="fas fa-check-circle"></i>
+        <i *ngIf="!item.selected" class="far fa-square"></i>
+      </div>
     </div>
     <div class="text-primary text-bold">
       {{ item.desde }} a {{ item.hasta }}
