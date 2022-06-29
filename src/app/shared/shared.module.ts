@@ -8,6 +8,7 @@ import { ListOptionComponent } from './list-option/list-option.component';
 import { ListAdUnitSizesComponent } from './list-ad-unit-sizes/list-ad-unit-sizes.component';
 import { ListReglasComponent } from './list-reglas/list-reglas.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { ListConfigReportComponent } from './list-config-report/list-config-report.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { NavbarComponent } from './navbar/navbar.component';
     ListAdUnitSizesComponent,
     ListReglasComponent,
     NavbarComponent,
+    ListConfigReportComponent,
   ],
   imports: [CommonModule, NgZorroAntdModule],
   exports: [
@@ -24,6 +26,7 @@ import { NavbarComponent } from './navbar/navbar.component';
     ListOptionComponent,
     ListAdUnitSizesComponent,
     ListReglasComponent,
+    ListConfigReportComponent,
     NavbarComponent,
     FormsModule,
     ReactiveFormsModule,

@@ -1,71 +1,146 @@
-<div class="container">
-  <div>
-    <div class="section mb-1">
-      <p>AdUnits</p>
+<div *ngIf="!isConfigReport">
+  <div class="container">
+    <div>
+      <div class="section mb-1">
+        <p>AdUnits</p>
+      </div>
+      <div class="section-status">
+        <div class="item">
+          <p>ACTIVE</p>
+          <div class="count1">
+            <p>325</p>
+          </div>
+        </div>
+        <div class="item">
+          <p>INACTIVE</p>
+          <div class="count2">
+            <p>40</p>
+          </div>
+        </div>
+        <div class="item">
+          <p>ARCHIVED</p>
+          <div class="count3">
+            <p>10</p>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="section-status">
-      <div class="item">
-        <p>ACTIVE</p>
-        <div class="count1">
-          <p>325</p>
-        </div>
+    <div>
+      <div class="section mb-1">
+        <p>Placements</p>
       </div>
-      <div class="item">
-        <p>INACTIVE</p>
-        <div class="count2">
-          <p>40</p>
+      <div class="section-status">
+        <div class="item">
+          <p>ACTIVE</p>
+          <div class="count4">
+            <p>25</p>
+          </div>
         </div>
-      </div>
-      <div class="item">
-        <p>ARCHIVED</p>
-        <div class="count3">
-          <p>10</p>
+        <div class="item">
+          <p>INACTIVE</p>
+          <div class="count5">
+            <p>35</p>
+          </div>
+        </div>
+        <div class="item">
+          <p>ARCHIVED</p>
+          <div class="count3">
+            <p>10</p>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  <div>
-    <div class="section mb-1">
-      <p>Placements</p>
-    </div>
-    <div class="section-status">
-      <div class="item">
-        <p>ACTIVE</p>
-        <div class="count4">
-          <p>25</p>
-        </div>
-      </div>
-      <div class="item">
-        <p>INACTIVE</p>
-        <div class="count5">
-          <p>35</p>
-        </div>
-      </div>
-      <div class="item">
-        <p>ARCHIVED</p>
-        <div class="count3">
-          <p>10</p>
-        </div>
-      </div>
-    </div>
+
+  <div class="mt-4">
+    <p class="text-xlarge text-white">Resumen del Network de Ad Manager</p>
+  </div>
+
+  <div class="button-option mt-3">
+    <i class="fas fa-arrow-alt-up"></i>
+    <p>Subir Cambios a Ad Manager</p>
+  </div>
+
+  <div (click)="configReport()" class="button-option mt-3">
+    <i class="fas fa-cog"></i>
+    <p>Configuración de reportes</p>
+  </div>
+
+  <div class="button-option mt-3">
+    <i class="fas fa-arrow-alt-to-bottom"></i>
+    <p>Generar reporte</p>
   </div>
 </div>
 
-<div class="mt-4">
-  <p class="text-xlarge text-white">Resumen del Network de Ad Manager</p>
-</div>
+<div *ngIf="isConfigReport">
+  <div class="container-report">
+    <div nz-row nzAlign="middle" nzJustify="center">
+      <div nz-col>
+        <p class="text-bold text-medium text-primary">
+          Configuración de reportes
+        </p>
+      </div>
+    </div>
 
-<div class="button-option mt-3">
-  <i class="fas fa-arrow-alt-up"></i>
-  <p>Subir Cambios a Ad Manager</p>
-</div>
+    <div class="mt-4">
+      <list-config-report
+        [test]="listTemp"
+        (openModal)="openModalReport($event)"
+      ></list-config-report>
+    </div>
+  </div>
 
-<div (click)="configReport()" class="button-option mt-3">
-  <i class="fas fa-cog"></i>
-  <p>Configuración de reportes</p>
-</div>
+  <!-- MODALES -->
 
-<div class="button-option mt-3">
-  <i class="fas fa-arrow-alt-to-bottom"></i>
-  <p>Generar reporte</p>
+  <nz-modal
+    [(nzVisible)]="isVisible"
+    [nzCloseIcon]="closeIcon"
+    [nzCancelText]="null"
+    [nzOkText]="null"
+    (nzOnCancel)="closeModal()"
+  >
+    <ng-container *nzModalContent>
+      <div class="container-modal">
+        <div nz-row nzAlign="middle" nzJustify="center">
+          <div nz-col nzSpan="14">
+            <p class="text-bold text-medium text-primary text-center">
+              Agregar nuevo
+            </p>
+          </div>
+        </div>
+
+        <form [formGroup]="formModal">
+          <div class="mt-5" nz-row nzAlign="middle" nzJustify="center">
+            <div nz-col>
+              <label class="text-bold text-primary">Nombre</label>
+              <input
+                nz-input
+                onkeypress="return ((event.keyCode >= 65) && (event.keyCode <= 90) || (event.keyCode >= 97) && (event.keyCode <= 122) || (event.keyCode == 209) || (event.keyCode == 241) || (event.keyCode == 32) ) "
+                nzSize="large"
+                placeholder="Ingresar nombre"
+                formControlName="nombre"
+              />
+            </div>
+          </div>
+        </form>
+
+        <div class="mt-5" nz-row nzAlign="middle" nzJustify="center">
+          <div nz-col>
+            <button
+              [disabled]="!formModal.valid"
+              class="btn btn-primary"
+              (click)="closeModal()"
+            >
+              guardar
+            </button>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <ng-template #closeIcon>
+      <div class="close-modal">
+        <i class="fas fa-times"></i>
+      </div>
+    </ng-template>
+  </nz-modal>
 </div>

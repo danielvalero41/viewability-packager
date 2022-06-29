@@ -1,0 +1,33 @@
+<div class="content">
+  <div *ngFor="let item of list; let i = index">
+    <div class="container">
+      <div>
+        <div nz-row nzAlign="middle" nzJustify="space-between">
+          <div nz-col>
+            <p class="text-bold text-primary">{{ item.key }}</p>
+          </div>
+          <div (click)="activedAdd(i)" nz-col class="container-icon">
+            <i *ngIf="item.active" class="fas fa-check-circle"></i>
+            <i *ngIf="!item.active" class="far fa-square"></i>
+          </div>
+        </div>
+
+        <div class="list-website" *ngFor="let value of item.value">
+          <small>{{ value }}</small>
+        </div>
+      </div>
+
+      <div
+        (click)="addConfig(item)"
+        *ngIf="item.active"
+        nz-row
+        nzAlign="middle"
+        nzJustify="end"
+      >
+        <div nz-col class="container-icon">
+          <i class="fas fa-plus"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
