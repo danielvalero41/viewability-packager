@@ -7,7 +7,8 @@ import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 })
 export class ListReglasComponent implements OnInit {
   @Input() isModal: boolean;
-
+  @Input() listReglas;
+  @Input() listaCompleta;
   listRules = [
     {
       desde: 0,
@@ -90,15 +91,25 @@ export class ListReglasComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges): void {
     console.log(changes);
+    // debugger;
+
+    if (changes.listReglas.currentValue?.length !== 0) {
+      this.listReglas = changes.listReglas.currentValue;
+      if (this.listReglas) {
+        this.fixList();
+      }
+    }
+
     this.listSelected = [];
-    if (changes.isModal.currentValue === false) {
-      this.listRules.forEach((element) => {
-        if (element.selected === true) {
-          this.listSelected.push(element);
-        }
-      });
+    if (changes.isModal?.currentValue === false) {
+      // this.listReglas.forEach((element) => {
+      //   if (element.selected === true) {
+      //     this.listSelected.push(element);
+      //   }
+      // });
     } else {
-      this.listSelected = this.listRules;
+      this.fixListComplet();
+      // this.listSelected = this.listReglas;
     }
   }
 
@@ -109,5 +120,36 @@ export class ListReglasComponent implements OnInit {
   activeRule(index) {
     if (this.isModal === true)
       this.listSelected[index].selected = !this.listSelected[index].selected;
+  }
+
+  fixList() {
+    this.listReglas.forEach((element) => {
+      debugger;
+      element.selected = true;
+    });
+  }
+
+  fixListComplet() {
+    // // debugger;
+    if (this.listReglas && this.listaCompleta) {
+      this.listReglas.forEach((element) => {
+        delete element.selected;
+      });
+      this.listaCompleta.forEach((element, index) => {
+        let findId = this.listReglas.findIndex(
+          (x) =>
+            x.environmentType === element.environmentType &&
+            x.fullDisplayString === element.fullDisplayString
+        );
+        console.log(findId);
+        if (findId !== -1) {
+          element.selected = true;
+        } else {
+          element.selected = false;
+        }
+      });
+      // // debugger;
+    }
+    // // debugger;
   }
 }

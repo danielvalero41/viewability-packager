@@ -1,10 +1,5 @@
-<div
-  [ngClass]="{
-    'container-normal': isModal === false,
-    'container-modal': isModal === true
-  }"
->
-  <div class="option" *ngFor="let item of listSelected; let i = index">
+<div *ngIf="isModal === false" class="container-normal">
+  <div class="option" *ngFor="let item of listAdSize; let i = index">
     <div class="title">
       <div class="text-bold text-primary text-medium">
         {{ item.fullDisplayString }}
@@ -22,6 +17,48 @@
       <p>isAspectRatio: {{ item.size.isAspectRatio }}</p>
       <p>environmentType: "{{ item.environmentType }}"</p>
       <p>fullDisplayString: {{ item.fullDisplayString }}</p>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="isModal === true">
+  <div nz-row nzAlign="middle" class="mt-5 mb-4">
+    <div nz-col>
+      <nz-switch (click)="changeSelect()"></nz-switch>
+      <label class="ml-2">Listar solo seleccionados</label>
+    </div>
+  </div>
+  <div class="container-modal">
+    <div class="option mt-2" *ngFor="let item of listCompleta; let i = index">
+      <div class="title">
+        <div class="text-bold text-primary text-medium">
+          {{ item.fullDisplayString }}
+        </div>
+        <div
+          (click)="activeAd(i)"
+          [ngClass]="{ notActiveAd: isModal === false }"
+          class="container-icon text-primary"
+        >
+          <i *ngIf="item.selected" class="fas fa-check-circle"></i>
+          <i *ngIf="!item.selected" class="far fa-square"></i>
+        </div>
+      </div>
+      <div class="mt-1">
+        <p>isAspectRatio: {{ item.size.isAspectRatio }}</p>
+        <p>environmentType: "{{ item.environmentType }}"</p>
+        <p>fullDisplayString: {{ item.fullDisplayString }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-3" nz-row nzAlign="middle" nzJustify="center" nzGutter="28">
+    <div nz-col class="gutter-row">
+      <p (click)="canceledModal()" class="link">Cancelar</p>
+    </div>
+    <div nz-col class="gutter-row">
+      <button class="btn btn-primary" (click)="saveChangeModal()">
+        guardar
+      </button>
     </div>
   </div>
 </div>

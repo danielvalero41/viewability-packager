@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="option" *ngFor="let item of listMobile; let i = index">
+    <div class="title">
+      <div>
+        <p>{{ item.applicationId }}</p>
+        <p>{{ item.displayName }}</p>
+      </div>
+      <div (click)="activeAplicationId(i)" class="container-icon text-primary">
+        <i *ngIf="item.selected" class="fas fa-check-circle"></i>
+        <i *ngIf="!item.selected" class="far fa-square"></i>
+      </div>
+    </div>
+  </div>
+</div>

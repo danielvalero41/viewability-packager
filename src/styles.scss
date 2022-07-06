@@ -190,3 +190,46 @@ p {
   border-radius: 12px;
   // margin: 0 25px;
 }
+
+.ant-steps-item-process > .ant-steps-item-container > .ant-steps-item-icon {
+  background: $primary;
+  font-weight: bold;
+}
+
+.ant-steps-item-process .ant-steps-item-icon {
+  background-color: #fff;
+  border-color: $primary;
+}
+
+.ant-steps-item-finish .ant-steps-item-icon {
+  background-color: #fff;
+  border-color: $primary;
+}
+
+.anticon,
+.anticon svg {
+  display: inline-block;
+  color: $primary;
+}
+
+.ant-steps-item-finish
+  > .ant-steps-item-container
+  > .ant-steps-item-content
+  > .ant-steps-item-title::after,
+.ant-steps-item-finish
+  > .ant-steps-item-container
+  > .ant-steps-item-tail::after {
+  background-color: $primary;
+}
+
+.ant-steps-item-process
+  > .ant-steps-item-container
+  > .ant-steps-item-content
+  > .ant-steps-item-description,
+.ant-steps-item-process
+  > .ant-steps-item-container
+  > .ant-steps-item-content
+  > .ant-steps-item-title {
+  color: $primary;
+  font-weight: bold;
+}

@@ -1,20 +1,30 @@
 <div class="container">
-  <div nz-row nzAlign="middle" nzGutter="23">
-    <div class="gutter-row" nz-col nzSpan="8">
-      <p class="text-bold text-primary">Fecha</p>
-      <nz-date-picker
-        class="w-100"
-        nzSize="large"
-        (ngModelChange)="onChange($event)"
-      ></nz-date-picker>
+  <form [formGroup]="formDate">
+    <div nz-row nzAlign="middle" nzGutter="23">
+      <div class="gutter-row" nz-col nzSpan="8">
+        <p class="text-bold text-primary">Fecha</p>
+        <nz-date-picker
+          formControlName="date"
+          [nzDisabledDate]="disabledDate"
+          class="w-100"
+          nzSize="large"
+          [nzFormat]="'dd-MM-yyyy'"
+          (ngModelChange)="getDate($event)"
+        ></nz-date-picker>
+      </div>
+      <div class="gutter-row mt-3" nz-col>
+        <button (click)="searchDate()" class="btn btn-primary">buscar</button>
+      </div>
     </div>
-    <div class="gutter-row mt-3" nz-col>
-      <button class="btn btn-primary">buscar</button>
-    </div>
-  </div>
+  </form>
 
   <div class="content mt-4">
-    <p>
+    <pre>{{ listDate | json }}</pre>
+    <!-- <p *ngFor="let item of listDate">
+      {{ item }}
+    </p>
+    <p *ngIf="listDate.length === 0">No hay datos disponibles</p> -->
+    <!-- <p>
       2020-02-22 15:26:07,789654 I [1917:Pero 001] [127.0.0.1] [jblogs]
       ActiveView::Base -- Processing [1917:Pero 001] [127.0.0.1] [jblogs] Active
     </p>
@@ -29,6 +39,6 @@
     <p>
       2020-02-22 15:26:07,789654 I [1917:Pero 001] [127.0.0.1] [jblogs]
       ActiveView::Base -- Processing [1917:Pero 001] [127.0.0.1] [jblogs] Active
-    </p>
+    </p> -->
   </div>
 </div>

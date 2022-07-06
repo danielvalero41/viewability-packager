@@ -1,4 +1,11 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 
 @Component({
   selector: 'list-ad-unit-sizes',
@@ -7,202 +14,15 @@ import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 })
 export class ListAdUnitSizesComponent implements OnInit {
   @Input() isModal: boolean;
+  @Input() listAdSize;
+  @Input() listCompleta;
+  @Output() closeModal = new EventEmitter<any>();
+  @Output() changeData = new EventEmitter<any>();
+  allSelected: boolean = false;
+  listTemp = [];
+  @Input() createAd;
 
-  listAd = [
-    {
-      size: {
-        width: 300,
-        height: 250,
-        isAspectRatio: false,
-      },
-      environmentType: 'BROWSER',
-      companions: [],
-      fullDisplayString: '300x250',
-      isAudio: false,
-      selected: true,
-    },
-    {
-      size: {
-        width: 300,
-        height: 250,
-        isAspectRatio: false,
-      },
-      environmentType: 'BROWSER',
-      companions: [],
-      fullDisplayString: '300x250',
-      isAudio: false,
-      selected: false,
-    },
-    {
-      size: {
-        width: 300,
-        height: 250,
-        isAspectRatio: false,
-      },
-      environmentType: 'BROWSER',
-      companions: [],
-      fullDisplayString: '300x250',
-      isAudio: false,
-      selected: true,
-    },
-    {
-      size: {
-        width: 300,
-        height: 250,
-        isAspectRatio: false,
-      },
-      environmentType: 'BROWSER',
-      companions: [],
-      fullDisplayString: '300x250',
-      isAudio: false,
-      selected: true,
-    },
-    {
-      size: {
-        width: 300,
-        height: 250,
-        isAspectRatio: false,
-      },
-      environmentType: 'BROWSER',
-      companions: [],
-      fullDisplayString: '300x250',
-      isAudio: false,
-      selected: false,
-    },
-    {
-      size: {
-        width: 300,
-        height: 250,
-        isAspectRatio: false,
-      },
-      environmentType: 'BROWSER',
-      companions: [],
-      fullDisplayString: '300x250',
-      isAudio: false,
-      selected: true,
-    },
-    {
-      size: {
-        width: 300,
-        height: 250,
-        isAspectRatio: false,
-      },
-      environmentType: 'BROWSER',
-      companions: [],
-      fullDisplayString: '300x250',
-      isAudio: false,
-      selected: true,
-    },
-    {
-      size: {
-        width: 300,
-        height: 250,
-        isAspectRatio: false,
-      },
-      environmentType: 'BROWSER',
-      companions: [],
-      fullDisplayString: '300x250',
-      isAudio: false,
-      selected: false,
-    },
-    {
-      size: {
-        width: 300,
-        height: 250,
-        isAspectRatio: false,
-      },
-      environmentType: 'BROWSER',
-      companions: [],
-      fullDisplayString: '300x250',
-      isAudio: false,
-      selected: true,
-    },
-    {
-      size: {
-        width: 300,
-        height: 250,
-        isAspectRatio: false,
-      },
-      environmentType: 'BROWSER',
-      companions: [],
-      fullDisplayString: '300x250',
-      isAudio: false,
-      selected: false,
-    },
-    {
-      size: {
-        width: 300,
-        height: 250,
-        isAspectRatio: false,
-      },
-      environmentType: 'BROWSER',
-      companions: [],
-      fullDisplayString: '300x250',
-      isAudio: false,
-      selected: false,
-    },
-    {
-      size: {
-        width: 300,
-        height: 250,
-        isAspectRatio: false,
-      },
-      environmentType: 'BROWSER',
-      companions: [],
-      fullDisplayString: '300x250',
-      isAudio: false,
-      selected: true,
-    },
-    {
-      size: {
-        width: 300,
-        height: 250,
-        isAspectRatio: false,
-      },
-      environmentType: 'BROWSER',
-      companions: [],
-      fullDisplayString: '300x250',
-      isAudio: false,
-      selected: false,
-    },
-    {
-      size: {
-        width: 300,
-        height: 250,
-        isAspectRatio: false,
-      },
-      environmentType: 'BROWSER',
-      companions: [],
-      fullDisplayString: '300x250',
-      isAudio: false,
-      selected: false,
-    },
-    {
-      size: {
-        width: 300,
-        height: 250,
-        isAspectRatio: false,
-      },
-      environmentType: 'BROWSER',
-      companions: [],
-      fullDisplayString: '300x250',
-      isAudio: false,
-      selected: false,
-    },
-    {
-      size: {
-        width: 300,
-        height: 250,
-        isAspectRatio: false,
-      },
-      environmentType: 'BROWSER',
-      companions: [],
-      fullDisplayString: '300x250',
-      isAudio: false,
-      selected: false,
-    },
-  ];
-
+  _createAd;
   listSelected = [];
 
   constructor() {}
@@ -210,21 +30,99 @@ export class ListAdUnitSizesComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges): void {
     console.log(changes);
     this.listSelected = [];
-    if (changes.isModal.currentValue === false) {
-      this.listAd.forEach((element) => {
-        if (element.selected === true) {
-          this.listSelected.push(element);
-        }
-      });
+
+    if (changes.createAd?.currentValue) {
+      this._createAd = changes.createAd.currentValue;
+    }
+
+    if (changes.isModal?.currentValue === false) {
+      // this.listAd.forEach((element) => {
+      //   if (element.selected === true) {
+      //     this.listSelected.push(element);
+      //   }
+      // });
     } else {
-      this.listSelected = this.listAd;
+      // this.listSelected = this.listAd;
+      this.fixListComplet();
+      // console.log(this.listCompleta);
+      // // debugger;
+    }
+
+    if (changes.listAdSize.currentValue?.length !== 0) {
+      this.listAdSize = changes.listAdSize?.currentValue;
+      if (this.listAdSize) {
+        this.fixList();
+      }
     }
   }
 
   ngOnInit(): void {}
 
+  changeSelect() {
+    this.allSelected = !this.allSelected;
+    console.log(this.allSelected);
+
+    if (this.allSelected) {
+      this.listTemp = [...this.listCompleta];
+      this.listCompleta = this.listCompleta.filter((x) => x.selected === true);
+    } else {
+      this.listCompleta = this.listTemp;
+    }
+  }
+
+  fixListComplet() {
+    // // debugger;
+    if (this.listAdSize && this.listCompleta) {
+      this.listAdSize.forEach((element) => {
+        delete element.selected;
+      });
+      this.listCompleta.forEach((element, index) => {
+        let findId = this.listAdSize.findIndex(
+          (x) =>
+            x.environmentType === element.environmentType &&
+            x.fullDisplayString === element.fullDisplayString
+        );
+        console.log(findId);
+        if (findId !== -1) {
+          element.selected = true;
+        } else {
+          element.selected = false;
+        }
+      });
+      // // debugger;
+    }
+    // // debugger;
+  }
+
+  fixList() {
+    this.listAdSize.forEach((element) => {
+      element.selected = true;
+    });
+  }
+
   activeAd(index) {
     if (this.isModal === true)
-      this.listSelected[index].selected = !this.listSelected[index].selected;
+      this.listCompleta[index].selected = !this.listCompleta[index].selected;
+  }
+
+  canceledModal() {
+    this.closeModal.emit(false);
+  }
+
+  saveChangeModal() {
+    console.log('listCompleta', this.listCompleta);
+    console.log('list a mostrar', this.listAdSize);
+    console.log(this._createAd);
+    if (this._createAd === true) {
+      this.listAdSize = this.listCompleta;
+      this.listAdSize = this.listAdSize.filter((x) => x.selected === true);
+    } else {
+      this.listAdSize = this.listCompleta;
+      this.listAdSize = this.listAdSize.filter((x) => x.selected === true);
+    }
+
+    // debugger;
+    this.changeData.emit(this.listAdSize);
+    this.closeModal.emit(false);
   }
 }

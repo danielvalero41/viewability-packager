@@ -22,3 +22,17 @@
   font-size: 20px;
   cursor: pointer;
 }
+
+.valueReport:hover {
+  color: $danger;
+  cursor: pointer;
+}
+
+.container-modal {
+  .close-modal {
+    i {
+      font-size: 20px;
+      color: #999999;
+    }
+  }
+}

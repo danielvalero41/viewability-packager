@@ -6,6 +6,8 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { NzStepsModule } from 'ng-zorro-antd/steps';
 
 @NgModule({
   declarations: [],
@@ -17,6 +19,8 @@ import { NzSwitchModule } from 'ng-zorro-antd/switch';
     NzSelectModule,
     NzDatePickerModule,
     NzSwitchModule,
+    NzSpinModule,
+    NzStepsModule,
   ],
 })
 export class NgZorroAntdModule {}

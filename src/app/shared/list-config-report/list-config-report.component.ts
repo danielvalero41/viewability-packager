@@ -1,10 +1,12 @@
 import {
   Component,
   EventEmitter,
+  Input,
   OnInit,
   Output,
   SimpleChanges,
 } from '@angular/core';
+import { ApiAdManagerService } from 'src/app/home/services/api-ad-manager.service';
 
 @Component({
   selector: 'list-config-report',
@@ -13,51 +15,41 @@ import {
 })
 export class ListConfigReportComponent implements OnInit {
   @Output() openModal = new EventEmitter<any>();
+  @Output() cancelConfigReport = new EventEmitter<any>();
+  @Output() saveConfigReport = new EventEmitter<any>();
+  @Input() listConfig;
 
-  listConfig = [
-    {
-      Websites: [
-        'AZD-TVAzteca',
-        'AZD-Azteca-7',
-        'AZD-AztecaUno',
-        'AZD-Azteca-Deportes',
-        'AZD-AztecaNoticias',
-        'Amas-TV',
-        'ADN40',
-        'AZD-AztecaJalisco',
-        'AZD-AztecaQuintanaRoo',
-        'Code-Passbacks/',
-      ],
-      Apps: ['AZI-Apps-Azteca (29153227)'],
-      Envivo: [
-        'AZI-Azteca-Noticias',
-        'P40-Proyecto-40',
-        'AZI-Azteca-Trece',
-        'AZI-Azteca-7',
-      ],
-      SuperApp: ['AZI-Super-App'],
-      InstantArticles: ['AZD-Instant-Article'],
-      Roku: ['AZD-Roku (21919173872)'],
-      FutbolSites: ['AZD-Futbol-Sites'],
-      BEHOLDER: ['BEHOLDER'],
-      Youtube: ['YouTube to ContenTV Shared (36100987)'],
-    },
-  ];
-
+  apiBusy: boolean;
+  isVisible: boolean;
   list = [];
+  listTemp = [];
+  data;
 
-  constructor() {
-    for (const key in this.listConfig[0]) {
-      const element = this.listConfig[0];
+  constructor(public apiAdManager: ApiAdManagerService) {}
+
+  ngOnInit(): void {
+    // console.log(this.listConfig);
+    // debugger;
+
+    this.listTemp = [...this.listConfig];
+
+    this.listConfig.forEach((element) => {
       this.list.push({
-        key: key,
-        value: element[key],
+        key: element.name,
+        value: element.adunits,
         active: false,
       });
-    }
-  }
+    });
 
-  ngOnInit(): void {}
+    // for (const key in this.listConfig) {
+    //   const element = this.listConfig;
+    //   this.list.push({
+    //     key: key,
+    //     value: element[key],
+    //     active: false,
+    //   });
+    // }
+  }
 
   activedAdd(index) {
     this.list[index].active = !this.list[index].active;
@@ -68,5 +60,59 @@ export class ListConfigReportComponent implements OnInit {
       isVisibleModal: true,
       data: data,
     });
+  }
+
+  cancelConfigRepor() {
+    // console.log(this.listTemp);
+    // console.log(this.listConfig);
+    // debugger;
+    this.cancelConfigReport.emit({
+      active: false,
+      data: this.listConfig,
+    });
+  }
+
+  saveConfigRepor() {
+    let body = [];
+    this.list.forEach((element) => {
+      delete element.active;
+    });
+
+    for (const key in this.list) {
+      const element = this.list;
+      body.push({
+        name: element[key].key,
+        adunits: element[key].value,
+      });
+    }
+
+    this.data = {
+      lista: body,
+    };
+    // console.log(data);
+    // debugger;
+    this.apiBusy = true;
+    this.apiAdManager.loadConfigReport(this.data).subscribe(
+      (resp) => {
+        console.log(resp);
+        this.apiBusy = false;
+        this.isVisible = true;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  closeModal() {
+    this.isVisible = false;
+    this.saveConfigReport.emit({
+      active: false,
+      data: this.data,
+    });
+  }
+
+  deleteReport(value, index, indexReport) {
+    this.list[indexReport].value.splice(index, 1);
   }
 }

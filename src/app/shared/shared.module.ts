@@ -9,6 +9,9 @@ import { ListAdUnitSizesComponent } from './list-ad-unit-sizes/list-ad-unit-size
 import { ListReglasComponent } from './list-reglas/list-reglas.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ListConfigReportComponent } from './list-config-report/list-config-report.component';
+import { UpChangeManagerComponent } from './modals/up-change-manager/up-change-manager.component';
+import { SincronizarComponent } from './modals/sincronizar/sincronizar.component';
+import { ListAplicationIdComponent } from './list-aplication-id/list-aplication-id.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +20,9 @@ import { ListConfigReportComponent } from './list-config-report/list-config-repo
     ListReglasComponent,
     NavbarComponent,
     ListConfigReportComponent,
+    UpChangeManagerComponent,
+    SincronizarComponent,
+    ListAplicationIdComponent,
   ],
   imports: [CommonModule, NgZorroAntdModule],
   exports: [
@@ -31,6 +37,7 @@ import { ListConfigReportComponent } from './list-config-report/list-config-repo
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
+    ListAplicationIdComponent,
   ],
 })
 export class SharedModule {}

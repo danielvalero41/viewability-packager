@@ -1,22 +1,49 @@
-<div class="container">
-  <div
-    class="option"
-    [ngClass]="{ optionWidth: isModal === false }"
-    *ngFor="let item of listRules; let i = index"
-  >
-    <div class="title">
-      <p>Regla de</p>
-      <div
-        (click)="activeRule(i)"
-        class="container-icon"
-        [ngClass]="{ notActiveAd: isModal === false }"
-      >
-        <i *ngIf="item.selected" class="fas fa-check-circle"></i>
-        <i *ngIf="!item.selected" class="far fa-square"></i>
+<div *ngIf="isModal === false">
+  <div class="container">
+    <div
+      class="option"
+      [ngClass]="{ optionWidth: isModal === false }"
+      *ngFor="let item of listReglas; let i = index"
+    >
+      <div class="title">
+        <p>Regla de</p>
+        <div
+          (click)="activeRule(i)"
+          class="container-icon"
+          [ngClass]="{ notActiveAd: isModal === false }"
+        >
+          <i *ngIf="item.selected" class="fas fa-check-circle"></i>
+          <i *ngIf="!item.selected" class="far fa-square"></i>
+        </div>
+      </div>
+      <div class="text-primary text-bold">
+        {{ item.desde }} a {{ item.hasta }}
       </div>
     </div>
-    <div class="text-primary text-bold">
-      {{ item.desde }} a {{ item.hasta }}
+  </div>
+</div>
+
+<div *ngIf="isModal === true">
+  <div class="container">
+    <div
+      class="option"
+      [ngClass]="{ optionWidth: isModal === false }"
+      *ngFor="let item of listaCompleta; let i = index"
+    >
+      <div class="title">
+        <p>Regla de</p>
+        <div
+          (click)="activeRule(i)"
+          class="container-icon"
+          [ngClass]="{ notActiveAd: isModal === false }"
+        >
+          <i *ngIf="item.selected" class="fas fa-check-circle"></i>
+          <i *ngIf="!item.selected" class="far fa-square"></i>
+        </div>
+      </div>
+      <div class="text-primary text-bold">
+        {{ item.desde }} a {{ item.hasta }}
+      </div>
     </div>
   </div>
 </div>

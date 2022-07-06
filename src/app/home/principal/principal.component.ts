@@ -1,6 +1,9 @@
 import { ApiAdManagerService } from './../services/api-ad-manager.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { UpChangeManagerComponent } from 'src/app/shared/modals/up-change-manager/up-change-manager.component';
+import { SincronizarComponent } from 'src/app/shared/modals/sincronizar/sincronizar.component';
 
 @Component({
   selector: 'app-principal',
@@ -12,6 +15,7 @@ export class PrincipalComponent implements OnInit {
 
   isConfigReport: boolean;
   isVisible: boolean;
+  isVisibleTest: boolean;
   listConfig = [
     {
       Websites: [
@@ -44,23 +48,87 @@ export class PrincipalComponent implements OnInit {
 
   listTemp: any;
 
+  adUnits;
+  cambios_no_guardados: number;
+  placements;
+  apiBusy: boolean;
+  reset1: boolean;
+  reset2: boolean;
+
   constructor(
     public apiAdManager: ApiAdManagerService,
-    public fb: FormBuilder
+    public fb: FormBuilder,
+    private modalService: NzModalService
   ) {
     this.formModal = this.fb.group({
       nombre: ['', Validators.required],
     });
+    this.apiBusy = true;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loadData();
+  }
+  closeModalTest() {}
+
+  loadData() {
+    this.apiBusy = true;
+
+    this.apiAdManager.networkMain().subscribe(
+      (resp) => {
+        // console.log(resp);
+        this.apiBusy = false;
+        this.adUnits = resp.message.adunits;
+        this.cambios_no_guardados = resp.message.cambios_no_guardados;
+        this.placements = resp.message.placements;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+
+    this.apiAdManager.getListConfigReport().subscribe(
+      (resp) => {
+        console.log(resp);
+        if (resp.message.length !== 0) {
+          this.listTemp = resp.message[0].lista;
+        } else {
+          this.listTemp = [];
+        }
+        console.log(this.listTemp);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
 
   get f() {
     return this.formModal.controls;
   }
 
+  subirCambios() {
+    this.modalService.create({
+      nzMaskClosable: false,
+      nzCancelText: null,
+      nzOkText: null,
+      nzClosable: false,
+      nzContent: UpChangeManagerComponent,
+    });
+  }
+
   configReport() {
     this.isConfigReport = true;
+  }
+
+  cancelConfigReport(data) {
+    this.listTemp = data.data;
+    this.isConfigReport = data.active;
+  }
+
+  saveConfigReport(data) {
+    this.listTemp = data.data.lista;
+    this.isConfigReport = data.acitve;
   }
 
   openModalReport(data) {
@@ -71,6 +139,38 @@ export class PrincipalComponent implements OnInit {
 
   closeModal() {
     this.listTemp.value.push(this.formModal.value.nombre);
+    this.formModal.reset();
     this.isVisible = false;
+  }
+
+  sincronizar() {
+    this.modalService.create({
+      nzMaskClosable: false,
+      nzCancelText: null,
+      nzOkText: null,
+      nzClosable: true,
+      nzOnCancel: (x) => {
+        console.log('cerrar');
+      },
+      nzContent: SincronizarComponent,
+    });
+  }
+
+  downLoadReport() {
+    const url = `3.13.69.0:80/api/my-ad-manager/reporte`;
+    fetch(url, {
+      method: 'GET',
+      headers: new Headers({
+        Accept: '*/*',
+      }),
+    })
+      .then((response) => response.blob())
+      .then((blob) => {
+        var file = new Blob([blob], { type: 'application/zip' });
+        var fileURL = URL.createObjectURL(file);
+        var link = document.createElement('a');
+        link.href = fileURL;
+        link.click();
+      });
   }
 }

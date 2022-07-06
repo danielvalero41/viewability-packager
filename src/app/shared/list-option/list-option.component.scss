@@ -22,8 +22,13 @@
   background-color: #ffff;
   //  border: 3px solid #d4d4d4;
 }
-
 /////////////////////////////////////
+
+.text-special {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
 
 .option {
   display: flex;

@@ -12,8 +12,13 @@
           </div>
         </div>
 
-        <div class="list-website" *ngFor="let value of item.value">
-          <small>{{ value }}</small>
+        <div
+          class="list-website"
+          *ngFor="let value of item.value; let j = index"
+        >
+          <small class="valueReport" (click)="deleteReport(value, j, i)">{{
+            value
+          }}</small>
         </div>
       </div>
 
@@ -30,4 +35,57 @@
       </div>
     </div>
   </div>
+
+  <div *ngIf="list.length === 0">No hay datos disponibles</div>
 </div>
+
+<div class="mt-3" nz-row nzAlign="middle" nzJustify="center" nzGutter="28">
+  <div nz-col class="gutter-row">
+    <p (click)="cancelConfigRepor()" class="link">Cancelar</p>
+  </div>
+  <div *ngIf="list.length > 0" nz-col class="gutter-row">
+    <nz-spin *ngIf="apiBusy" nzSize="large" nzSimple></nz-spin>
+    <button
+      *ngIf="!apiBusy"
+      class="btn btn-primary"
+      (click)="saveConfigRepor()"
+    >
+      guardar
+    </button>
+  </div>
+</div>
+
+<!-- MODALES -->
+
+<nz-modal
+  [(nzVisible)]="isVisible"
+  [nzCloseIcon]="closeIcon"
+  [nzCancelText]="null"
+  [nzOkText]="null"
+  (nzOnCancel)="closeModal()"
+>
+  <ng-container *nzModalContent>
+    <div class="container-modal">
+      <div class="mt-3" nz-row nzAlign="middle" nzJustify="center">
+        <div nz-col nzSpan="18">
+          <p class="text-bold text-medium text-primary text-center">
+            Reportes actualizados exitosamente
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-3" nz-row nzAlign="middle" nzJustify="center">
+        <div nz-col>
+          <button class="btn btn-primary" (click)="closeModal()">
+            aceptar
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <ng-template #closeIcon>
+    <div class="close-modal">
+      <i class="fas fa-times"></i>
+    </div>
+  </ng-template>
+</nz-modal>

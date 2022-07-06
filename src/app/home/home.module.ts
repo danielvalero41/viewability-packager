@@ -8,6 +8,7 @@ import { PrincipalComponent } from './principal/principal.component';
 import { LogsComponent } from './logs/logs.component';
 import { AdUnitsComponent } from './ad-units/ad-units.component';
 import { PlacementsComponent } from './placements/placements.component';
+import { ColorPickerModule } from 'ngx-color-picker';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,12 @@ import { PlacementsComponent } from './placements/placements.component';
     AdUnitsComponent,
     PlacementsComponent,
   ],
-  imports: [CommonModule, HomeRoutingModule, SharedModule, RouterModule],
+  imports: [
+    CommonModule,
+    HomeRoutingModule,
+    SharedModule,
+    RouterModule,
+    ColorPickerModule,
+  ],
 })
 export class HomeModule {}

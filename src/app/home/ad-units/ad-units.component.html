@@ -1,163 +1,862 @@
 <div class="container">
   <div>
-    <list-option></list-option>
+    <!-- <nz-spin *ngIf="!listAdUnit" nzSize="large" nzSimple></nz-spin> -->
+    <list-option
+      *ngIf="listAdUnit"
+      (adUnitSelect)="recivedAdUnit($event)"
+      [listAd]="listAdUnit"
+    ></list-option>
   </div>
   <div class="main">
-    <div *ngIf="!isAddAdUnits">
-      <div
-        nz-row
-        nzAlign="middle"
-        nzGutter="23"
-        nzJustify="space-between"
-        style="width: 100%"
-      >
-        <div nz-col nzSpan="16" class="gutter-row">
-          <div nz-row nzAlign="middle" class="container-section">
-            <div nz-col nzSpan="10" class="gutter-row">
-              <p class="text-primary">
-                <span class="text-bold">id</span>:12312156
-              </p>
-              <p class="text-primary">
-                <span class="text-bold">adUnitCode</span>: AZD-AztecaUno
-              </p>
-            </div>
-            <div nz-col nzSpan="12" class="gutter-row">
-              <p class="text-primary">
-                <span class="text-bold">status</span>:Active
-              </p>
-              <p class="text-primary">
-                <span class="text-bold">última modificación</span>: 29/07/2021
-              </p>
+    <div *ngIf="!listAdUnit" class="text-center">
+      <nz-spin nzSize="large" nzSimple></nz-spin>
+    </div>
+    <div *ngIf="!isAddAdUnits && listAdUnit">
+      <form [formGroup]="formAdUnit">
+        <div
+          nz-row
+          nzAlign="middle"
+          nzGutter="23"
+          nzJustify="space-between"
+          style="width: 100%"
+        >
+          <div nz-col nzSpan="16" class="gutter-row">
+            <div nz-row nzAlign="middle" class="container-section">
+              <div nz-col nzSpan="12" class="gutter-row">
+                <p class="text-primary">
+                  <span class="text-bold">id</span>:{{ detailsAdUnit?.id }}
+                </p>
+                <p class="text-primary">
+                  <span class="text-bold">adUnitCode</span>:
+                  {{ detailsAdUnit?.adUnitCode }}
+                </p>
+              </div>
+              <div nz-col nzSpan="12" class="gutter-row">
+                <p class="text-primary">
+                  <span class="text-bold">status</span>:{{
+                    detailsAdUnit?.status
+                  }}
+                </p>
+                <p class="text-primary">
+                  <span class="text-bold">última modificación</span>:
+                  {{ detailsAdUnit?.lastModifiedDateTime.date.day }}/{{
+                    detailsAdUnit?.lastModifiedDateTime.date.month
+                  }}/{{ detailsAdUnit?.lastModifiedDateTime.date.year }}
+                </p>
+              </div>
             </div>
           </div>
+          <div nz-col nzSpan="8" class="gutter-row text-center">
+            <button (click)="createAdUnit()" class="btn btn-primary">
+              agregar AdUnits
+            </button>
+          </div>
         </div>
-        <div nz-col nzSpan="8" class="gutter-row text-center">
-          <button (click)="createAdUnit()" class="btn btn-primary">
-            agregar AdUnits
-          </button>
-        </div>
-      </div>
 
-      <div nz-row nzAlign="middle" nzGutter="23" class="mt-4">
-        <div nz-col class="gutter-row" nzSpan="8">
-          <label class="text-bold text-primary">TargetWindow</label>
-          <nz-select nzSize="large" nzPlaceHolder="">
-            <nz-option nzValue="1" nzLabel="Opción 1"></nz-option>
-            <nz-option nzValue="2" nzLabel="Opción 2"></nz-option>
-            <nz-option nzValue="3" nzLabel="Opción 3"></nz-option>
-            <nz-option nzValue="4" nzLabel="Opción 4"></nz-option>
-            <nz-option nzValue="5" nzLabel="Opción 5"></nz-option>
-          </nz-select>
+        <div nz-row nzAlign="middle" nzGutter="23" class="mt-4">
+          <div nz-col class="gutter-row" nzSpan="8">
+            <label class="text-bold text-primary">TargetWindow</label>
+            <nz-select
+              nzSize="large"
+              formControlName="targetWindow"
+              nzPlaceHolder=""
+            >
+              <nz-option
+                *ngFor="let item of listTargetWindow"
+                [nzLabel]="item"
+                [nzValue]="item"
+              >
+              </nz-option>
+            </nz-select>
+          </div>
+          <div nz-col class="gutter-row" nzSpan="8">
+            <label class="text-bold text-primary">Status</label>
+            <nz-select nzSize="large" formControlName="status" nzPlaceHolder="">
+              <nz-option
+                *ngFor="let item of listStatus"
+                [nzLabel]="item"
+                [nzValue]="item"
+              >
+              </nz-option>
+            </nz-select>
+          </div>
+          <div nz-col class="gutter-row" nzSpan="8">
+            <label class="text-bold text-fade">ParentId</label>
+            <input
+              nz-input
+              nzSize="large"
+              onkeypress="return (event.keyCode != 32 && ( (event.keyCode >= 48) && (event.keyCode <=57) ))"
+              formControlName="parentId"
+              [disabled]="true"
+              placeholder=""
+            />
+          </div>
         </div>
-        <div nz-col class="gutter-row" nzSpan="8">
-          <label class="text-bold text-primary">Status</label>
-          <nz-select nzSize="large" nzPlaceHolder="">
-            <nz-option nzValue="1" nzLabel="Opción 1"></nz-option>
-            <nz-option nzValue="2" nzLabel="Opción 2"></nz-option>
-            <nz-option nzValue="3" nzLabel="Opción 3"></nz-option>
-            <nz-option nzValue="4" nzLabel="Opción 4"></nz-option>
-            <nz-option nzValue="5" nzLabel="Opción 5"></nz-option>
-          </nz-select>
-        </div>
-        <div nz-col class="gutter-row" nzSpan="8">
-          <label class="text-bold text-fade">ParentId</label>
-          <input nz-input nzSize="large" [disabled]="true" placeholder="" />
-        </div>
-      </div>
 
-      <div nz-row nzAlign="middle" class="mt-4">
-        <div nz-col nzSpan="24">
-          <label class="text-primary"
-            ><span class="text-bold">Descripción</span> (opcional)</label
+        <div nz-row nzAlign="middle" class="mt-4" nzGutter="23">
+          <div nz-col class="gutter-row" nzSpan="8">
+            <label class="text-primary"
+              ><span class="text-bold">Descripción</span> (opcional)</label
+            >
+            <input
+              nz-input
+              nzSize="large"
+              formControlName="description"
+              placeholder=""
+            />
+          </div>
+          <div nz-col class="gutter-row" nzSpan="8">
+            <label class="text-bold text-primary">SmartSize Mode</label>
+            <nz-select
+              nzSize="large"
+              formControlName="smartSize"
+              nzPlaceHolder=""
+            >
+              <nz-option
+                *ngFor="let item of listSmartSize"
+                [nzLabel]="item"
+                [nzValue]="item"
+              >
+              </nz-option>
+            </nz-select>
+          </div>
+          <div nz-col class="gutter-row" nzSpan="8">
+            <label class="text-bold text-primary">adSenseSettingsSource</label>
+            <nz-select
+              (ngModelChange)="adSSSChange($event)"
+              nzSize="large"
+              formControlName="adSenseSettingsSource"
+              nzPlaceHolder=""
+            >
+              <nz-option
+                *ngFor="let item of listAdSenseSource"
+                [nzLabel]="item"
+                [nzValue]="item"
+              >
+              </nz-option>
+            </nz-select>
+          </div>
+        </div>
+      </form>
+
+      <!-- STEPPERS -->
+
+      <div class="mt-4">
+        <nz-steps [nzCurrent]="current">
+          <nz-step
+            nzTitle="AdUnitdSize"
+            [nzDescription]="description"
+          ></nz-step>
+          <nz-step nzTitle="AdSense Settings"></nz-step>
+          <nz-step nzTitle="Application Id"></nz-step>
+          <ng-template #description>
+            <div
+              *ngIf="current === 0"
+              nz-row
+              nzAlign="middle"
+              class="mt-2 text-primary text-bold"
+            >
+              <img
+                style="cursor: pointer"
+                (click)="editAdUnitSize()"
+                src="./assets/img/pencil.svg"
+                alt=""
+              />
+            </div>
+          </ng-template>
+        </nz-steps>
+
+        <div class="steps-content mt-3">
+          <div *ngIf="current === 0">
+            <list-ad-unit-sizes
+              [listAdSize]="listAdSize"
+              [isModal]="false"
+            ></list-ad-unit-sizes>
+          </div>
+
+          <div *ngIf="current === 1">
+            <form [formGroup]="formAdSS">
+              <div nz-row nzAlign="middle" nzJustify="center" nzGutter="23">
+                <div nz-col nzSpan="6" class="gutter-row">
+                  <label class="text-bold text-primary">borderColor</label>
+                  <input
+                    formControlName="borderColor"
+                    nz-input
+                    nzSize="large"
+                    placeholder=""
+                  />
+                  <div class="color-picker">
+                    <input
+                      [disabled]="
+                        fAdUnit.adSenseSettingsSource.value === 'PARENT'
+                      "
+                      class="picker"
+                      (colorPickerChange)="pickColor($event, 'borderColor')"
+                      [(colorPicker)]="f.borderColor.value"
+                      [style.background]="f.borderColor.value"
+                      [style.border-color]="f.borderColor.value"
+                    />
+                  </div>
+                </div>
+                <div nz-col nzSpan="6" class="gutter-row">
+                  <label class="text-bold text-primary">adSenseEnabled</label>
+                  <div>
+                    <nz-select
+                      formControlName="adSenseEnabled"
+                      class="w-100"
+                      nzSize="large"
+                      nzPlaceHolder=""
+                    >
+                      <nz-option
+                        *ngFor="let item of listAdSense"
+                        [nzLabel]="item"
+                        [nzValue]="item"
+                      >
+                      </nz-option>
+                    </nz-select>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                nz-row
+                class="mt-3"
+                nzAlign="middle"
+                nzJustify="center"
+                nzGutter="23"
+              >
+                <div nz-col nzSpan="6" class="gutter-row">
+                  <label class="text-bold text-primary">titleColor</label>
+                  <input
+                    nz-input
+                    formControlName="titleColor"
+                    nzSize="large"
+                    placeholder=""
+                  />
+                  <div class="color-picker">
+                    <input
+                      [disabled]="
+                        fAdUnit.adSenseSettingsSource.value === 'PARENT'
+                      "
+                      class="picker"
+                      (colorPickerChange)="pickColor($event, 'titleColor')"
+                      [(colorPicker)]="f.titleColor.value"
+                      [style.background]="f.titleColor.value"
+                      [style.border-color]="f.titleColor.value"
+                    />
+                  </div>
+                </div>
+                <div nz-col nzSpan="6" class="gutter-row">
+                  <label class="text-bold text-primary">adType</label>
+                  <div>
+                    <nz-select
+                      formControlName="adType"
+                      class="w-100"
+                      nzSize="large"
+                      nzPlaceHolder=""
+                    >
+                      <nz-option
+                        *ngFor="let item of listAdType"
+                        [nzLabel]="item"
+                        [nzValue]="item"
+                      >
+                      </nz-option>
+                    </nz-select>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                nz-row
+                class="mt-3"
+                nzAlign="middle"
+                nzJustify="center"
+                nzGutter="23"
+              >
+                <div nz-col nzSpan="6" class="gutter-row">
+                  <label class="text-bold text-primary">backgroundColor</label>
+                  <input
+                    nz-input
+                    formControlName="backgroundColor"
+                    nzSize="large"
+                    placeholder=""
+                  />
+                  <div class="color-picker">
+                    <input
+                      [disabled]="
+                        fAdUnit.adSenseSettingsSource.value === 'PARENT'
+                      "
+                      class="picker"
+                      (colorPickerChange)="pickColor($event, 'backgroundColor')"
+                      [(colorPicker)]="f.backgroundColor.value"
+                      [style.background]="f.backgroundColor.value"
+                      [style.border-color]="f.backgroundColor.value"
+                    />
+                  </div>
+                </div>
+                <div nz-col nzSpan="6" class="gutter-row">
+                  <label class="text-bold text-primary">borderStyle</label>
+                  <div>
+                    <nz-select
+                      formControlName="borderStyle"
+                      class="w-100"
+                      nzSize="large"
+                      nzPlaceHolder=""
+                    >
+                      <nz-option
+                        *ngFor="let item of listBorderStyle"
+                        [nzLabel]="item"
+                        [nzValue]="item"
+                      >
+                      </nz-option>
+                    </nz-select>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                nz-row
+                class="mt-3"
+                nzAlign="middle"
+                nzJustify="center"
+                nzGutter="23"
+              >
+                <div nz-col nzSpan="6" class="gutter-row">
+                  <label class="text-bold text-primary">textColor</label>
+
+                  <input
+                    nz-input
+                    formControlName="textColor"
+                    nzSize="large"
+                    placeholder=""
+                  />
+                  <div class="color-picker">
+                    <input
+                      [disabled]="
+                        fAdUnit.adSenseSettingsSource.value === 'PARENT'
+                      "
+                      class="picker"
+                      (colorPickerChange)="pickColor($event, 'textColor')"
+                      [(colorPicker)]="f.textColor.value"
+                      [style.background]="f.textColor.value"
+                      [style.border-color]="f.textColor.value"
+                    />
+                  </div>
+                </div>
+                <div nz-col nzSpan="6" class="gutter-row">
+                  <label class="text-bold text-primary">fontFamily</label>
+                  <div>
+                    <nz-select
+                      formControlName="fontFamily"
+                      class="w-100"
+                      nzSize="large"
+                      nzPlaceHolder=""
+                    >
+                      <nz-option
+                        *ngFor="let item of listFontFamily"
+                        [nzLabel]="item"
+                        [nzValue]="item"
+                      >
+                      </nz-option>
+                    </nz-select>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                nz-row
+                class="mt-3"
+                nzAlign="middle"
+                nzJustify="center"
+                nzGutter="23"
+              >
+                <div nz-col nzSpan="6" class="gutter-row">
+                  <label class="text-bold text-primary">urlColor</label>
+
+                  <input
+                    nz-input
+                    formControlName="urlColor"
+                    nzSize="large"
+                    placeholder=""
+                  />
+                  <div class="color-picker">
+                    <input
+                      [disabled]="
+                        fAdUnit.adSenseSettingsSource.value === 'PARENT'
+                      "
+                      class="picker"
+                      (colorPickerChange)="pickColor($event, 'urlColor')"
+                      [(colorPicker)]="f.urlColor.value"
+                      [style.background]="f.urlColor.value"
+                      [style.border-color]="f.urlColor.value"
+                    />
+                  </div>
+                </div>
+                <div nz-col nzSpan="6" class="gutter-row">
+                  <label class="text-bold text-primary">fontSize</label>
+                  <div>
+                    <nz-select
+                      formControlName="fontSize"
+                      class="w-100"
+                      nzSize="large"
+                      nzPlaceHolder=""
+                    >
+                      <nz-option
+                        *ngFor="let item of listFontSize"
+                        [nzLabel]="item"
+                        [nzValue]="item"
+                      >
+                      </nz-option>
+                    </nz-select>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <div *ngIf="current === 2">
+            <list-aplication-id
+              (sendDataMobile)="recivedDataMobile($event)"
+              [listMobile]="listMobile"
+            ></list-aplication-id>
+          </div>
+        </div>
+        <div
+          nz-row
+          class="mt-3"
+          nzAlign="middle"
+          nzGutter="32"
+          nzJustify="center"
+        >
+          <div nz-col class="gutter-row">
+            <p class="link" (click)="pre()" *ngIf="current > 0">regresar</p>
+          </div>
+          <div nz-col class="gutter-row">
+            <button
+              class="btn btn-primary"
+              (click)="next()"
+              *ngIf="current < 2"
+            >
+              Continuar
+            </button>
+          </div>
+          <button
+            class="btn btn-primary"
+            (click)="done()"
+            *ngIf="current === 2"
           >
-          <input nz-input nzSize="large" placeholder="Migración CMS 2019" />
-        </div>
-      </div>
-
-      <div nz-row nzAlign="middle" class="mt-4 text-primary text-bold">
-        <p class="mr-2">AdUnitdSize</p>
-        <img src="./assets/img/pencil.svg" alt="" />
-      </div>
-
-      <div class="mt-3">
-        <list-ad-unit-sizes [isModal]="false"></list-ad-unit-sizes>
-      </div>
-
-      <div
-        class="mt-3"
-        nz-row
-        nzAlign="middle"
-        nzJustify="center"
-        nzGutter="28"
-      >
-        <div nz-col class="gutter-row">
-          <p class="link">Cancelar</p>
-        </div>
-        <div nz-col class="gutter-row">
-          <button class="btn btn-primary">guardar</button>
+            guardar
+          </button>
         </div>
       </div>
     </div>
 
     <!-- Agrega AdUnits -->
     <div *ngIf="isAddAdUnits">
-      <div nz-row nzAlign="middle" nzGutter="23" class="mt-4">
-        <div nz-col class="gutter-row" nzSpan="8">
-          <label class="text-bold text-primary">TargetWindow</label>
-          <nz-select nzSize="large" nzPlaceHolder="">
-            <nz-option nzValue="1" nzLabel="Opción 1"></nz-option>
-            <nz-option nzValue="2" nzLabel="Opción 2"></nz-option>
-            <nz-option nzValue="3" nzLabel="Opción 3"></nz-option>
-            <nz-option nzValue="4" nzLabel="Opción 4"></nz-option>
-            <nz-option nzValue="5" nzLabel="Opción 5"></nz-option>
-          </nz-select>
+      <form [formGroup]="formCreateAdUnit">
+        <div nz-row nzAlign="middle" nzGutter="23" class="mt-4">
+          <div nz-col class="gutter-row" nzSpan="8">
+            <label class="text-bold text-primary">TargetWindow</label>
+            <nz-select
+              nzSize="large"
+              formControlName="targetWindow"
+              nzPlaceHolder=""
+            >
+              <nz-option
+                *ngFor="let item of listTargetWindow"
+                [nzLabel]="item"
+                [nzValue]="item"
+              >
+              </nz-option>
+            </nz-select>
+          </div>
+          <div nz-col class="gutter-row" nzSpan="8">
+            <label class="text-bold text-primary">Status</label>
+            <nz-select nzSize="large" formControlName="status" nzPlaceHolder="">
+              <nz-option
+                *ngFor="let item of listStatus"
+                [nzLabel]="item"
+                [nzValue]="item"
+              >
+              </nz-option>
+            </nz-select>
+          </div>
+          <div nz-col class="gutter-row" nzSpan="8">
+            <label class="text-bold text-primary">ParentId</label>
+            <input
+              nz-input
+              nzSize="large"
+              onkeypress="return (event.keyCode != 32 && ( (event.keyCode >= 48) && (event.keyCode <=57) ))"
+              formControlName="parentId"
+              placeholder=""
+            />
+          </div>
         </div>
-        <div nz-col class="gutter-row" nzSpan="8">
-          <label class="text-bold text-primary">Status</label>
-          <nz-select nzSize="large" nzPlaceHolder="">
-            <nz-option nzValue="1" nzLabel="Opción 1"></nz-option>
-            <nz-option nzValue="2" nzLabel="Opción 2"></nz-option>
-            <nz-option nzValue="3" nzLabel="Opción 3"></nz-option>
-            <nz-option nzValue="4" nzLabel="Opción 4"></nz-option>
-            <nz-option nzValue="5" nzLabel="Opción 5"></nz-option>
-          </nz-select>
+
+        <div nz-row nzAlign="middle" class="mt-4" nzGutter="23">
+          <div nz-col class="gutter-row" nzSpan="8">
+            <label class="text-primary"
+              ><span class="text-bold">Descripción</span> (opcional)</label
+            >
+            <input
+              nz-input
+              nzSize="large"
+              formControlName="description"
+              placeholder=""
+            />
+          </div>
+
+          <div nz-col class="gutter-row" nzSpan="8">
+            <label class="text-bold text-primary">SmartSize Mode</label>
+            <nz-select
+              nzSize="large"
+              formControlName="smartSize"
+              nzPlaceHolder=""
+            >
+              <nz-option
+                *ngFor="let item of listSmartSize"
+                [nzLabel]="item"
+                [nzValue]="item"
+              >
+              </nz-option>
+            </nz-select>
+          </div>
+
+          <div nz-col class="gutter-row" nzSpan="8">
+            <label class="text-bold text-primary">adSenseSettingsSource</label>
+            <nz-select
+              formControlName="adSenseSettingsSource"
+              (ngModelChange)="adSSSCreateChange($event)"
+              nzSize="large"
+              nzPlaceHolder=""
+            >
+              <nz-option
+                *ngFor="let item of listAdSenseSource"
+                [nzLabel]="item"
+                [nzValue]="item"
+              >
+              </nz-option>
+            </nz-select>
+          </div>
         </div>
-        <div nz-col class="gutter-row" nzSpan="8">
-          <label class="text-bold text-primary">ParentId</label>
-          <input nz-input nzSize="large" placeholder="" />
+      </form>
+
+      <!-- Steppers AddAdUnits -->
+      <div class="mt-4">
+        <nz-steps [nzCurrent]="current">
+          <nz-step
+            nzTitle="AdUnitdSize"
+            [nzDescription]="description"
+          ></nz-step>
+          <nz-step nzTitle="AdSense Settings"></nz-step>
+          <nz-step nzTitle="Application Id"></nz-step>
+          <ng-template #description>
+            <div
+              *ngIf="current === 0"
+              nz-row
+              nzAlign="middle"
+              class="mt-2 text-primary text-bold"
+            >
+              <img
+                style="cursor: pointer"
+                (click)="addAdUnitSize()"
+                src="./assets/img/plus.svg"
+                alt=""
+              />
+            </div>
+          </ng-template>
+        </nz-steps>
+
+        <div class="steps-content mt-3">
+          <div *ngIf="current === 0">
+            <list-ad-unit-sizes
+              [listAdSize]="listAdSize"
+              [isModal]="false"
+            ></list-ad-unit-sizes>
+          </div>
+
+          <div *ngIf="current === 1">
+            <form [formGroup]="formAdSSCreate">
+              <div nz-row nzAlign="middle" nzJustify="center" nzGutter="23">
+                <div nz-col nzSpan="6" class="gutter-row">
+                  <label class="text-bold text-primary">borderColor</label>
+                  <input
+                    nz-input
+                    formControlName="borderColor"
+                    nzSize="large"
+                    placeholder=""
+                  />
+                  <div class="color-picker">
+                    <input
+                      [disabled]="
+                        fAdUnitCreate.adSenseSettingsSource.value === 'PARENT'
+                      "
+                      class="picker"
+                      (colorPickerChange)="
+                        pickColorCreate($event, 'borderColor')
+                      "
+                      [(colorPicker)]="fCreateAd.borderColor.value"
+                      [style.background]="fCreateAd.borderColor.value"
+                      [style.border-color]="fCreateAd.borderColor.value"
+                    />
+                  </div>
+                </div>
+                <div nz-col nzSpan="6" class="gutter-row">
+                  <label class="text-bold text-primary">adSenseEnabled</label>
+                  <div>
+                    <nz-select
+                      class="w-100"
+                      formControlName="adSenseEnabled"
+                      nzSize="large"
+                      nzPlaceHolder=""
+                    >
+                      <nz-option
+                        *ngFor="let item of listAdSense"
+                        [nzLabel]="item"
+                        [nzValue]="item"
+                      >
+                      </nz-option>
+                    </nz-select>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                nz-row
+                class="mt-3"
+                nzAlign="middle"
+                nzJustify="center"
+                nzGutter="23"
+              >
+                <div nz-col nzSpan="6" class="gutter-row">
+                  <label class="text-bold text-primary">titleColor</label>
+                  <input
+                    nz-input
+                    nzSize="large"
+                    formControlName="titleColor"
+                    placeholder=""
+                  />
+                  <div class="color-picker">
+                    <input
+                      class="picker"
+                      [disabled]="
+                        fAdUnitCreate.adSenseSettingsSource.value === 'PARENT'
+                      "
+                      (colorPickerChange)="
+                        pickColorCreate($event, 'titleColor')
+                      "
+                      [(colorPicker)]="fCreateAd.titleColor.value"
+                      [style.background]="fCreateAd.titleColor.value"
+                      [style.border-color]="fCreateAd.titleColor.value"
+                    />
+                  </div>
+                </div>
+                <div nz-col nzSpan="6" class="gutter-row">
+                  <label class="text-bold text-primary">adType</label>
+                  <div>
+                    <nz-select
+                      formControlName="adType"
+                      class="w-100"
+                      nzSize="large"
+                      nzPlaceHolder=""
+                    >
+                      <nz-option
+                        *ngFor="let item of listAdType"
+                        [nzLabel]="item"
+                        [nzValue]="item"
+                      >
+                      </nz-option>
+                    </nz-select>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                nz-row
+                class="mt-3"
+                nzAlign="middle"
+                nzJustify="center"
+                nzGutter="23"
+              >
+                <div nz-col nzSpan="6" class="gutter-row">
+                  <label class="text-bold text-primary">backgroundColor</label>
+                  <input
+                    nz-input
+                    nzSize="large"
+                    formControlName="backgroundColor"
+                    placeholder=""
+                  />
+                  <div class="color-picker">
+                    <input
+                      class="picker"
+                      [disabled]="
+                        fAdUnitCreate.adSenseSettingsSource.value === 'PARENT'
+                      "
+                      (colorPickerChange)="
+                        pickColorCreate($event, 'backgroundColor')
+                      "
+                      [(colorPicker)]="fCreateAd.backgroundColor.value"
+                      [style.background]="fCreateAd.backgroundColor.value"
+                      [style.border-color]="fCreateAd.backgroundColor.value"
+                    />
+                  </div>
+                </div>
+                <div nz-col nzSpan="6" class="gutter-row">
+                  <label class="text-bold text-primary">borderStyle</label>
+                  <div>
+                    <nz-select
+                      formControlName="borderStyle"
+                      class="w-100"
+                      nzSize="large"
+                      nzPlaceHolder=""
+                    >
+                      <nz-option
+                        *ngFor="let item of listBorderStyle"
+                        [nzLabel]="item"
+                        [nzValue]="item"
+                      >
+                      </nz-option>
+                    </nz-select>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                nz-row
+                class="mt-3"
+                nzAlign="middle"
+                nzJustify="center"
+                nzGutter="23"
+              >
+                <div nz-col nzSpan="6" class="gutter-row">
+                  <label class="text-bold text-primary">textColor</label>
+
+                  <input
+                    nz-input
+                    formControlName="textColor"
+                    nzSize="large"
+                    placeholder=""
+                  />
+                  <div class="color-picker">
+                    <input
+                      class="picker"
+                      [disabled]="
+                        fAdUnitCreate.adSenseSettingsSource.value === 'PARENT'
+                      "
+                      (colorPickerChange)="pickColorCreate($event, 'textColor')"
+                      [(colorPicker)]="fCreateAd.textColor.value"
+                      [style.background]="fCreateAd.textColor.value"
+                      [style.border-color]="fCreateAd.textColor.value"
+                    />
+                  </div>
+                </div>
+                <div nz-col nzSpan="6" class="gutter-row">
+                  <label class="text-bold text-primary">fontFamily</label>
+                  <div>
+                    <nz-select
+                      formControlName="fontFamily"
+                      class="w-100"
+                      nzSize="large"
+                      nzPlaceHolder=""
+                    >
+                      <nz-option
+                        *ngFor="let item of listFontFamily"
+                        [nzLabel]="item"
+                        [nzValue]="item"
+                      >
+                      </nz-option>
+                    </nz-select>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                nz-row
+                class="mt-3"
+                nzAlign="middle"
+                nzJustify="center"
+                nzGutter="23"
+              >
+                <div nz-col nzSpan="6" class="gutter-row">
+                  <label class="text-bold text-primary">urlColor</label>
+
+                  <input
+                    nz-input
+                    nzSize="large"
+                    formControlName="urlColor"
+                    placeholder=""
+                  />
+                  <div class="color-picker">
+                    <input
+                      class="picker"
+                      [disabled]="
+                        fAdUnitCreate.adSenseSettingsSource.value === 'PARENT'
+                      "
+                      (colorPickerChange)="pickColorCreate($event, 'urlColor')"
+                      [(colorPicker)]="fCreateAd.urlColor.value"
+                      [style.background]="fCreateAd.urlColor.value"
+                      [style.border-color]="fCreateAd.urlColor.value"
+                    />
+                  </div>
+                </div>
+                <div nz-col nzSpan="6" class="gutter-row">
+                  <label class="text-bold text-primary">fontSize</label>
+                  <div>
+                    <nz-select
+                      class="w-100"
+                      formControlName="fontSize"
+                      nzSize="large"
+                      nzPlaceHolder=""
+                    >
+                      <nz-option
+                        *ngFor="let item of listFontSize"
+                        [nzLabel]="item"
+                        [nzValue]="item"
+                      >
+                      </nz-option>
+                    </nz-select>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <div *ngIf="current === 2">
+            <list-aplication-id
+              (sendDataMobile)="recivedDataMobile($event)"
+              [listMobile]="listMobile"
+            ></list-aplication-id>
+          </div>
         </div>
-      </div>
-      <div nz-row nzAlign="middle" class="mt-4">
-        <div nz-col nzSpan="24">
-          <label class="text-primary"
-            ><span class="text-bold">Descripción</span> (opcional)</label
+        <div
+          nz-row
+          class="mt-3"
+          nzAlign="middle"
+          nzGutter="32"
+          nzJustify="center"
+        >
+          <div nz-col class="gutter-row">
+            <p class="link" (click)="pre()" *ngIf="current > 0">regresar</p>
+            <p class="link" (click)="cancelAddAdUnit()" *ngIf="current === 0">
+              cancelar
+            </p>
+          </div>
+          <div nz-col class="gutter-row">
+            <button
+              class="btn btn-primary"
+              (click)="next()"
+              *ngIf="current < 2"
+            >
+              Continuar
+            </button>
+          </div>
+          <button
+            class="btn btn-primary"
+            (click)="doneCreate()"
+            *ngIf="current === 2"
           >
-          <input nz-input nzSize="large" placeholder="Migración CMS 2019" />
-        </div>
-      </div>
-
-      <div nz-row nzAlign="middle" class="mt-4 text-primary text-bold">
-        <p class="mr-2">AdUnitd</p>
-        <img
-          class="img-editAd"
-          (click)="addAdUnit()"
-          src="./assets/img/plus.svg"
-          alt=""
-        />
-      </div>
-
-      <div
-        class="mt-3"
-        nz-row
-        nzAlign="middle"
-        nzJustify="center"
-        nzGutter="28"
-      >
-        <div nz-col class="gutter-row">
-          <p (click)="cancelAddAdUnit()" class="link">Cancelar</p>
-        </div>
-        <div nz-col class="gutter-row">
-          <button class="btn btn-primary">guardar</button>
+            guardar
+          </button>
         </div>
       </div>
     </div>
@@ -171,8 +870,8 @@
   [nzCloseIcon]="closeIcon"
   [nzCancelText]="null"
   [nzOkText]="null"
-  [nzWidth]="600"
-  (nzOnCancel)="closeModal()"
+  [nzWidth]="900"
+  (nzOnCancel)="closeModal2()"
 >
   <ng-container *nzModalContent>
     <div class="container-modal">
@@ -184,32 +883,15 @@
         </div>
       </div>
 
-      <div nz-row nzAlign="middle" class="mt-5">
-        <div nz-col>
-          <nz-switch [(ngModel)]="switchValue"></nz-switch>
-          <label class="ml-2">Listar solo seleccionados</label>
-        </div>
-      </div>
-
       <div class="mt-3">
-        <list-ad-unit-sizes [isModal]="true"></list-ad-unit-sizes>
-      </div>
-
-      <div
-        class="mt-3"
-        nz-row
-        nzAlign="middle"
-        nzJustify="center"
-        nzGutter="28"
-      >
-        <div nz-col class="gutter-row">
-          <p (click)="closeModal()" class="link">Cancelar</p>
-        </div>
-        <div nz-col class="gutter-row">
-          <button class="btn btn-primary" (click)="closeModal()">
-            guardar
-          </button>
-        </div>
+        <list-ad-unit-sizes
+          [listCompleta]="listAdSizeCompleta"
+          [listAdSize]="listAdSize"
+          [createAd]="createAd"
+          [isModal]="true"
+          (closeModal)="closeModal($event)"
+          (changeData)="changeData($event)"
+        ></list-ad-unit-sizes>
       </div>
     </div>
   </ng-container>
