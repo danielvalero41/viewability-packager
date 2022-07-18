@@ -21,6 +21,7 @@
     "@angular/router": "~10.2.4",
     "ng-zorro-antd": "^10.2.2",
     "ngx-color-picker": "^10.0.0",
+    "ngx-mask": "^11.1.4",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"

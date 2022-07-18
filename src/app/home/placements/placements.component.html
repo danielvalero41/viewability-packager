@@ -1,16 +1,25 @@
 <div class="container">
   <div>
+    <div *ngIf="listRules" class="filter">
+      <p class="text-bold">Filtrar por:</p>
+      <div class="filter-buttons">
+        <button class="active" (click)="filterButton('ACTIVE')"></button>
+        <button class="archived" (click)="filterButton('ARCHIVED')"></button>
+        <button class="inactive" (click)="filterButton('INACTIVE')"></button>
+      </div>
+    </div>
     <list-option
       *ngIf="listRules"
       (adUnitSelect)="recivedAdUnit($event)"
       [listAd]="listRules"
+      [height_calculate]="height_calculate"
     ></list-option>
   </div>
   <div class="main">
     <div *ngIf="!listRules" class="text-center">
       <nz-spin nzSize="large" nzSimple></nz-spin>
     </div>
-    <div *ngIf="!isAddPlacements && listRules">
+    <div id="heigth" *ngIf="!isAddPlacements && listRules">
       <form [formGroup]="formPlacement">
         <div
           nz-row
@@ -19,9 +28,16 @@
           nzJustify="space-between"
           style="width: 100%"
         >
-          <div nz-col nzSpan="16" class="gutter-row">
+          <div nz-col nzSpan="15" class="gutter-row">
             <div nz-row nzAlign="middle" class="container-section">
-              <div nz-col nzSpan="12" class="gutter-row">
+              <div
+                *ngIf="
+                  detailsPlacements?.id && detailsPlacements?.placementCode
+                "
+                nz-col
+                nzSpan="12"
+                class="gutter-row"
+              >
                 <p class="text-primary">
                   <span class="text-bold">id</span>:{{ detailsPlacements?.id }}
                 </p>
@@ -45,7 +61,7 @@
               </div>
             </div>
           </div>
-          <div nz-col nzSpan="8" class="gutter-row text-center">
+          <div nz-col nzSpan="9" class="gutter-row text-center">
             <button (click)="createPlacements()" class="btn btn-primary">
               AGREGAR PLACEMENTS
             </button>
@@ -99,11 +115,14 @@
       >
         <div class="section-regla">
           <p class="mr-2">Reglas viewability</p>
-          <img (click)="editReglas()" src="./assets/img/pencil.svg" alt="" />
+          <!-- <img (click)="editReglas()" src="./assets/img/pencil.svg" alt="" /> -->
+          <button class="btn-special btn-primary" (click)="editReglas()">
+            Editar
+          </button>
         </div>
         <div class="text-primary">
           <p>
-            Cantidad de adunits asignados
+            Cantidad de reglas asignadas
             <span class="text-bold text-medium">{{ listReglas?.length }}</span>
           </p>
         </div>
@@ -125,72 +144,90 @@
         nzJustify="center"
       >
         <div nz-col class="gutter-row">
-          <p class="link">Cancelar</p>
-        </div>
-        <div nz-col class="gutter-row">
-          <button class="btn btn-primary">guardar</button>
+          <button (click)="done()" class="btn btn-primary">guardar</button>
         </div>
       </div>
     </div>
     <div *ngIf="isAddPlacements">
-      <div nz-row nzAlign="middle" nzGutter="23" class="mt-4">
-        <div nz-col class="gutter-row" nzSpan="8">
-          <label class="text-bold text-primary">Name</label>
-          <nz-select nzSize="large" nzPlaceHolder="">
-            <nz-option nzValue="1" nzLabel="Opción 1"></nz-option>
-            <nz-option nzValue="2" nzLabel="Opción 2"></nz-option>
-            <nz-option nzValue="3" nzLabel="Opción 3"></nz-option>
-            <nz-option nzValue="4" nzLabel="Opción 4"></nz-option>
-            <nz-option nzValue="5" nzLabel="Opción 5"></nz-option>
-          </nz-select>
+      <form [formGroup]="formAddPlacements">
+        <div nz-row nzAlign="middle" nzGutter="23" class="mt-4">
+          <div nz-col class="gutter-row" nzSpan="8">
+            <label class="text-bold text-primary">Name</label>
+            <input
+              nz-input
+              nzSize="large"
+              formControlName="name"
+              placeholder=""
+            />
+          </div>
+          <div nz-col class="gutter-row" nzSpan="8">
+            <label class="text-bold text-primary">Status</label>
+            <nz-select nzSize="large" formControlName="status" nzPlaceHolder="">
+              <nz-option
+                *ngFor="let item of listStatus"
+                [nzLabel]="item"
+                [nzValue]="item"
+              >
+              </nz-option>
+            </nz-select>
+          </div>
+          <div nz-col class="gutter-row" nzSpan="8"></div>
         </div>
-        <div nz-col class="gutter-row" nzSpan="8">
-          <label class="text-bold text-primary">Status</label>
-          <nz-select nzSize="large" nzPlaceHolder="">
-            <nz-option nzValue="1" nzLabel="Opción 1"></nz-option>
-            <nz-option nzValue="2" nzLabel="Opción 2"></nz-option>
-            <nz-option nzValue="3" nzLabel="Opción 3"></nz-option>
-            <nz-option nzValue="4" nzLabel="Opción 4"></nz-option>
-            <nz-option nzValue="5" nzLabel="Opción 5"></nz-option>
-          </nz-select>
-        </div>
-        <div nz-col class="gutter-row" nzSpan="8"></div>
-      </div>
 
-      <div nz-row nzAlign="middle" class="mt-4">
-        <div nz-col nzSpan="24">
-          <label class="text-primary"
-            ><span class="text-bold">Descripción</span> (opcional)</label
-          >
-          <input nz-input nzSize="large" placeholder="Migración CMS 2019" />
+        <div nz-row nzAlign="middle" class="mt-4">
+          <div nz-col nzSpan="24">
+            <label class="text-primary"
+              ><span class="text-bold">Descripción</span> (opcional)</label
+            >
+            <input
+              nz-input
+              nzSize="large"
+              formControlName="description"
+              placeholder=""
+            />
+          </div>
         </div>
-      </div>
 
-      <div nz-row nzAlign="middle" class="mt-4 text-primary text-bold">
-        <p class="mr-2">Reglas viewability</p>
-        <img
-          class="img-placements"
-          style="cursor: pointer"
-          (click)="addPlacements()"
-          src="./assets/img/plus.svg"
-          alt=""
-        />
-      </div>
+        <div></div>
 
-      <div
-        class="mt-3"
-        nz-row
-        nzAlign="middle"
-        nzJustify="center"
-        nzGutter="28"
-      >
-        <div nz-col class="gutter-row">
-          <p (click)="cancelePlacements()" class="link">Cancelar</p>
+        <div nz-row nzAlign="middle" class="mt-4 text-primary text-bold">
+          <p class="mr-2">Reglas viewability</p>
+          <!-- <img
+            class="img-placements"
+            style="cursor: pointer"
+            (click)="addPlacements()"
+            src="./assets/img/plus.svg"
+            alt=""
+          /> -->
+          <button class="btn-special btn-primary" (click)="addPlacements()">
+            Agregar
+          </button>
         </div>
-        <div nz-col class="gutter-row">
-          <button class="btn btn-primary">guardar</button>
+
+        <div class="mt-3">
+          <list-reglas
+            [listReglas]="listReglas"
+            [isModal]="false"
+          ></list-reglas>
         </div>
-      </div>
+
+        <div
+          class="mt-3"
+          nz-row
+          nzAlign="middle"
+          nzJustify="center"
+          nzGutter="28"
+        >
+          <div nz-col class="gutter-row">
+            <p (click)="cancelePlacements()" class="link">Cancelar</p>
+          </div>
+          <div nz-col class="gutter-row">
+            <button (click)="doneCreate()" class="btn btn-primary">
+              guardar
+            </button>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
 </div>
@@ -203,7 +240,7 @@
   [nzCancelText]="null"
   [nzOkText]="null"
   [nzWidth]="1000"
-  (nzOnCancel)="closeModal()"
+  (nzOnCancel)="closeModal2()"
 >
   <ng-container *nzModalContent>
     <div class="container-modal">
@@ -215,45 +252,15 @@
         </div>
       </div>
 
-      <div nz-row nzAlign="middle" nzGutter="23" class="mt-5">
-        <div nz-col class="gutter-row">
-          <label class="text-bold text-primary">Desde</label>
-          <input nz-input nzSize="large" placeholder="Ingresar número" />
-        </div>
-        <div nz-col class="gutter-row">
-          <label class="text-bold text-primary">Hasta</label>
-          <input nz-input nzSize="large" placeholder="Ingresar número" />
-        </div>
-        <div nz-col class="gutter-row mt-3">
-          <button class="btn btn-primary">agregar</button>
-        </div>
-      </div>
-
       <div class="mt-3">
         <!-- <list-ad-unit-sizes [isModal]="true"></list-ad-unit-sizes> -->
         <list-reglas
           [listReglas]="listReglas"
           [listaCompleta]="listReglasCompletas"
           (closeModal)="closeModal($event)"
+          (changeData)="changeData($event)"
           [isModal]="true"
         ></list-reglas>
-      </div>
-
-      <div
-        class="mt-3"
-        nz-row
-        nzAlign="middle"
-        nzJustify="center"
-        nzGutter="28"
-      >
-        <div nz-col class="gutter-row">
-          <p (click)="closeModal()" class="link">Cancelar</p>
-        </div>
-        <div nz-col class="gutter-row">
-          <button class="btn btn-primary" (click)="closeModal()">
-            guardar
-          </button>
-        </div>
       </div>
     </div>
   </ng-container>

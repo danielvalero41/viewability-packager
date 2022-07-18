@@ -24,7 +24,45 @@
 </div>
 
 <div *ngIf="isModal === true">
-  <div class="container">
+  <div nz-row nzAlign="middle" class="mt-5">
+    <div nz-col>
+      <p class="color-special">
+        Especificar rangos de la nueva regla que deseas agregar
+      </p>
+    </div>
+  </div>
+
+  <form [formGroup]="formSearch">
+    <div nz-row nzAlign="middle" nzGutter="23">
+      <div nz-col class="gutter-row">
+        <label class="text-bold text-primary">Desde</label>
+        <input
+          nz-input
+          formControlName="desde"
+          nzSize="large"
+          placeholder="Ingresar número"
+          thousandSeparator=","
+          mask="separator .10"
+        />
+      </div>
+      <div nz-col class="gutter-row">
+        <label class="text-bold text-primary">Hasta</label>
+        <input
+          nz-input
+          formControlName="hasta"
+          nzSize="large"
+          placeholder="Ingresar número"
+          thousandSeparator=","
+          mask="separator .10"
+        />
+      </div>
+      <div nz-col class="gutter-row mt-3">
+        <button (click)="search()" class="btn btn-primary">agregar</button>
+      </div>
+    </div>
+  </form>
+
+  <div class="container mt-4">
     <div
       class="option"
       [ngClass]="{ optionWidth: isModal === false }"
@@ -44,6 +82,17 @@
       <div class="text-primary text-bold">
         {{ item.desde }} a {{ item.hasta }}
       </div>
+    </div>
+  </div>
+
+  <div class="mt-3" nz-row nzAlign="middle" nzJustify="center" nzGutter="28">
+    <div nz-col class="gutter-row">
+      <p (click)="canceledModal()" class="link">Cancelar</p>
+    </div>
+    <div nz-col class="gutter-row">
+      <button class="btn btn-primary" (click)="saveChangeModal()">
+        guardar
+      </button>
     </div>
   </div>
 </div>

@@ -9,6 +9,7 @@ import { LogsComponent } from './logs/logs.component';
 import { AdUnitsComponent } from './ad-units/ad-units.component';
 import { PlacementsComponent } from './placements/placements.component';
 import { ColorPickerModule } from 'ngx-color-picker';
+import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { ColorPickerModule } from 'ngx-color-picker';
     SharedModule,
     RouterModule,
     ColorPickerModule,
+    NgxMaskModule,
   ],
 })
 export class HomeModule {}

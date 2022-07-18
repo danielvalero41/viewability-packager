@@ -56,3 +56,53 @@ nz-select {
     }
   }
 }
+.btn-special {
+  cursor: pointer;
+  height: 45px;
+  padding: 0px 20px;
+  border-radius: 15px;
+  border: 2px solid;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+}
+
+.filter {
+  display: flex;
+  gap: 10px;
+  color: #fff;
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.active {
+  background-color: #40bc5a;
+  width: 15px;
+  height: 15px;
+  border-color: transparent;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.archived {
+  background-color: #fbc011;
+  width: 15px;
+  height: 15px;
+  border-color: transparent;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.inactive {
+  background-color: #ef2a2e;
+  width: 15px;
+  height: 15px;
+  border-color: transparent;
+  border-radius: 2px;
+  cursor: pointer;
+}

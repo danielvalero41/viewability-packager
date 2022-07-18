@@ -12,7 +12,9 @@ import { ListConfigReportComponent } from './list-config-report/list-config-repo
 import { UpChangeManagerComponent } from './modals/up-change-manager/up-change-manager.component';
 import { SincronizarComponent } from './modals/sincronizar/sincronizar.component';
 import { ListAplicationIdComponent } from './list-aplication-id/list-aplication-id.component';
-
+import { NgxMaskModule } from 'ngx-mask';
+import { AddParentIdComponent } from './modals/add-parent-id/add-parent-id.component';
+import { ErrorComponent } from './modals/error/error.component';
 @NgModule({
   declarations: [
     ListOptionComponent,
@@ -23,8 +25,15 @@ import { ListAplicationIdComponent } from './list-aplication-id/list-aplication-
     UpChangeManagerComponent,
     SincronizarComponent,
     ListAplicationIdComponent,
+    AddParentIdComponent,
+    ErrorComponent,
   ],
-  imports: [CommonModule, NgZorroAntdModule],
+  imports: [
+    CommonModule,
+    NgZorroAntdModule,
+    ReactiveFormsModule,
+    NgxMaskModule.forRoot(),
+  ],
   exports: [
     NgZorroAntdModule,
     ReactiveFormsModule,
@@ -34,8 +43,6 @@ import { ListAplicationIdComponent } from './list-aplication-id/list-aplication-
     ListReglasComponent,
     ListConfigReportComponent,
     NavbarComponent,
-    FormsModule,
-    ReactiveFormsModule,
     RouterModule,
     ListAplicationIdComponent,
   ],

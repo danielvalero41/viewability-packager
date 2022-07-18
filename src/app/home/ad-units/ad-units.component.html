@@ -1,17 +1,26 @@
 <div class="container">
   <div>
     <!-- <nz-spin *ngIf="!listAdUnit" nzSize="large" nzSimple></nz-spin> -->
+    <div *ngIf="listAdUnit" class="filter">
+      <p class="text-bold">Filtrar por:</p>
+      <div class="filter-buttons">
+        <button class="active" (click)="filterButton('ACTIVE')"></button>
+        <button class="archived" (click)="filterButton('ARCHIVED')"></button>
+        <button class="inactive" (click)="filterButton('INACTIVE')"></button>
+      </div>
+    </div>
     <list-option
       *ngIf="listAdUnit"
       (adUnitSelect)="recivedAdUnit($event)"
       [listAd]="listAdUnit"
+      [height_calculate]="height_calculate"
     ></list-option>
   </div>
   <div class="main">
     <div *ngIf="!listAdUnit" class="text-center">
       <nz-spin nzSize="large" nzSimple></nz-spin>
     </div>
-    <div *ngIf="!isAddAdUnits && listAdUnit">
+    <div id="heigth" *ngIf="!isAddAdUnits && listAdUnit">
       <form [formGroup]="formAdUnit">
         <div
           nz-row
@@ -95,17 +104,6 @@
 
         <div nz-row nzAlign="middle" class="mt-4" nzGutter="23">
           <div nz-col class="gutter-row" nzSpan="8">
-            <label class="text-primary"
-              ><span class="text-bold">Descripción</span> (opcional)</label
-            >
-            <input
-              nz-input
-              nzSize="large"
-              formControlName="description"
-              placeholder=""
-            />
-          </div>
-          <div nz-col class="gutter-row" nzSpan="8">
             <label class="text-bold text-primary">SmartSize Mode</label>
             <nz-select
               nzSize="large"
@@ -136,6 +134,30 @@
               </nz-option>
             </nz-select>
           </div>
+
+          <div nz-col class="gutter-row" nzSpan="8">
+            <label class="text-primary">Name</label>
+            <input
+              nz-input
+              nzSize="large"
+              formControlName="name"
+              placeholder=""
+            />
+          </div>
+        </div>
+
+        <div nz-row class="mt-4" nzAlign="middle">
+          <div nz-col nzSpan="24">
+            <label class="text-primary"
+              ><span class="text-bold">Descripción</span> (opcional)</label
+            >
+            <input
+              nz-input
+              nzSize="large"
+              formControlName="description"
+              placeholder=""
+            />
+          </div>
         </div>
       </form>
 
@@ -156,12 +178,18 @@
               nzAlign="middle"
               class="mt-2 text-primary text-bold"
             >
-              <img
+              <!-- <img
                 style="cursor: pointer"
                 (click)="editAdUnitSize()"
                 src="./assets/img/pencil.svg"
                 alt=""
-              />
+              /> -->
+              <button
+                class="btn-special btn-primary"
+                (click)="editAdUnitSize()"
+              >
+                Editar
+              </button>
             </div>
           </ng-template>
         </nz-steps>
@@ -429,7 +457,7 @@
           nzJustify="center"
         >
           <div nz-col class="gutter-row">
-            <p class="link" (click)="pre()" *ngIf="current > 0">regresar</p>
+            <p class="link" (click)="pre()" *ngIf="current > 0">Regresar</p>
           </div>
           <div nz-col class="gutter-row">
             <button
@@ -481,31 +509,29 @@
               </nz-option>
             </nz-select>
           </div>
-          <div nz-col class="gutter-row" nzSpan="8">
+          <div nz-col class="gutter-row" nzSpan="6">
             <label class="text-bold text-primary">ParentId</label>
             <input
               nz-input
               nzSize="large"
+              [disabled]="true"
               onkeypress="return (event.keyCode != 32 && ( (event.keyCode >= 48) && (event.keyCode <=57) ))"
               formControlName="parentId"
               placeholder=""
             />
           </div>
+          <div nz-col class="gutter-row" nzSpan="2">
+            <img
+              class="mt-3"
+              style="cursor: pointer"
+              (click)="addParentId()"
+              src="./assets/img/pencil.svg"
+              alt=""
+            />
+          </div>
         </div>
 
         <div nz-row nzAlign="middle" class="mt-4" nzGutter="23">
-          <div nz-col class="gutter-row" nzSpan="8">
-            <label class="text-primary"
-              ><span class="text-bold">Descripción</span> (opcional)</label
-            >
-            <input
-              nz-input
-              nzSize="large"
-              formControlName="description"
-              placeholder=""
-            />
-          </div>
-
           <div nz-col class="gutter-row" nzSpan="8">
             <label class="text-bold text-primary">SmartSize Mode</label>
             <nz-select
@@ -538,6 +564,30 @@
               </nz-option>
             </nz-select>
           </div>
+
+          <div nz-col class="gutter-row" nzSpan="8">
+            <label class="text-primary">Name</label>
+            <input
+              nz-input
+              nzSize="large"
+              formControlName="name"
+              placeholder=""
+            />
+          </div>
+        </div>
+
+        <div nz-row class="mt-4" nzAlign="middle">
+          <div nz-col nzSpan="24">
+            <label class="text-primary"
+              ><span class="text-bold">Descripción</span> (opcional)</label
+            >
+            <input
+              nz-input
+              nzSize="large"
+              formControlName="description"
+              placeholder=""
+            />
+          </div>
         </div>
       </form>
 
@@ -557,12 +607,15 @@
               nzAlign="middle"
               class="mt-2 text-primary text-bold"
             >
-              <img
+              <!-- <img
                 style="cursor: pointer"
                 (click)="addAdUnitSize()"
                 src="./assets/img/plus.svg"
                 alt=""
-              />
+              /> -->
+              <button class="btn-special btn-primary" (click)="addAdUnitSize()">
+                Agregar
+              </button>
             </div>
           </ng-template>
         </nz-steps>
@@ -836,9 +889,9 @@
           nzJustify="center"
         >
           <div nz-col class="gutter-row">
-            <p class="link" (click)="pre()" *ngIf="current > 0">regresar</p>
+            <p class="link" (click)="pre()" *ngIf="current > 0">Regresar</p>
             <p class="link" (click)="cancelAddAdUnit()" *ngIf="current === 0">
-              cancelar
+              Cancelar
             </p>
           </div>
           <div nz-col class="gutter-row">

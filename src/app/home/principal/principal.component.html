@@ -67,10 +67,13 @@
     <p>Sincronizar</p>
   </div>
 
+  <!-- *ngIf="cambios_no_guardados > 0" -->
   <div
     (click)="subirCambios()"
-    *ngIf="cambios_no_guardados > 0"
-    class="button-option mt-3"
+    [ngClass]="
+      cambios_no_guardados > 0 ? 'button-option' : 'button-option-disable'
+    "
+    class="mt-3"
   >
     <i class="fas fa-arrow-alt-up"></i>
     <p>Subir Cambios a Ad Manager</p>

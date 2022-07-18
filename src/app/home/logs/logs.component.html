@@ -6,6 +6,7 @@
         <nz-date-picker
           formControlName="date"
           [nzDisabledDate]="disabledDate"
+          [nzInputReadOnly]="true"
           class="w-100"
           nzSize="large"
           [nzFormat]="'dd-MM-yyyy'"
@@ -19,26 +20,12 @@
   </form>
 
   <div class="content mt-4">
-    <pre>{{ listDate | json }}</pre>
-    <!-- <p *ngFor="let item of listDate">
-      {{ item }}
+    <pre *ngIf="listDate">{{ listDate | json }}</pre>
+    <p *ngIf="!listDate && touched">
+      No hay registro disponibles para esta fecha
     </p>
-    <p *ngIf="listDate.length === 0">No hay datos disponibles</p> -->
-    <!-- <p>
-      2020-02-22 15:26:07,789654 I [1917:Pero 001] [127.0.0.1] [jblogs]
-      ActiveView::Base -- Processing [1917:Pero 001] [127.0.0.1] [jblogs] Active
-    </p>
-    <p>
-      2020-02-22 15:26:07,789654 I [1917:Pero 001] [127.0.0.1] [jblogs]
-      ActiveView::Base -- Processing [1917:Pero 001] [127.0.0.1] [jblogs] Active
-    </p>
-    <p>
-      2020-02-22 15:26:07,789654 I [1917:Pero 001] [127.0.0.1] [jblogs]
-      ActiveView::Base -- Processing [1917:Pero 001] [127.0.0.1] [jblogs] Active
-    </p>
-    <p>
-      2020-02-22 15:26:07,789654 I [1917:Pero 001] [127.0.0.1] [jblogs]
-      ActiveView::Base -- Processing [1917:Pero 001] [127.0.0.1] [jblogs] Active
-    </p> -->
+    <div *ngIf="!touched" class="text-center">
+      <nz-spin nzSize="large" nzSimple></nz-spin>
+    </div>
   </div>
 </div>

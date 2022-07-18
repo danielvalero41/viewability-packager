@@ -1,7 +1,9 @@
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ApiAdManagerService } from '../services/api-ad-manager.service';
 import { adUnit } from '../model/adUnits';
+import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
+import { AddParentIdComponent } from 'src/app/shared/modals/add-parent-id/add-parent-id.component';
 
 @Component({
   selector: 'app-ad-units',
@@ -26,6 +28,7 @@ export class AdUnitsComponent implements OnInit {
   listAdSizeTemp: any;
   listAdSizeCompleta: any;
   createAd: boolean = false;
+  radioValue = 'A';
 
   detailsAdUnit: adUnit;
   color = 'red';
@@ -41,12 +44,16 @@ export class AdUnitsComponent implements OnInit {
 
   listAdUnit: adUnit;
 
+  height_calculate: any = 0;
+
   constructor(
     public fb: FormBuilder,
-    public apiAdManager: ApiAdManagerService
+    public apiAdManager: ApiAdManagerService,
+    private modalService: NzModalService
   ) {
     this.formAdUnit = this.fb.group({
       targetWindow: [''],
+      name: [''],
       status: [''],
       description: [''],
       smartSize: [''],
@@ -56,6 +63,7 @@ export class AdUnitsComponent implements OnInit {
 
     this.formCreateAdUnit = this.fb.group({
       targetWindow: [''],
+      name: [''],
       status: [''],
       description: [''],
       smartSize: [''],
@@ -107,8 +115,18 @@ export class AdUnitsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.f.borderColor.setValue('blue');
     this.loadData();
+
+    this.apiAdManager.parentId.subscribe((resp) => {
+      this.fAdUnitCreate.parentId.setValue(resp.id);
+    });
+  }
+
+  ngAfterViewChecked(): void {
+    this.height_calculate = document.getElementById('heigth')?.clientHeight;
+    // console.log(this.height_calculate);
+
+    // debugger;
   }
 
   loadData() {
@@ -317,7 +335,7 @@ export class AdUnitsComponent implements OnInit {
 
     let data = [];
 
-    // data.push(body);
+    data.push(body);
     // debugger;
 
     this.apiAdManager.editarAdUnit(data).subscribe(
@@ -453,6 +471,7 @@ export class AdUnitsComponent implements OnInit {
   }
 
   initFormAdUnit(data) {
+    this.fAdUnit.name.setValue(data.name);
     this.fAdUnit.targetWindow.setValue(data.targetWindow);
     this.fAdUnit.status.setValue(data.status);
     this.fAdUnit.description.setValue(data.description);
@@ -467,8 +486,23 @@ export class AdUnitsComponent implements OnInit {
     this.fAdUnitCreate.targetWindow.setValue('BLANK');
     this.fAdUnitCreate.status.setValue('ACTIVE');
     this.fAdUnitCreate.description.setValue('');
+    this.fAdUnitCreate.name.setValue('');
+    this.fAdUnitCreate.parentId.disable();
     this.fAdUnitCreate.smartSize.setValue('NONE');
     this.fAdUnitCreate.adSenseSettingsSource.setValue('PARENT');
+  }
+
+  addParentId() {
+    this.modalService.create({
+      nzMaskClosable: true,
+      nzCancelText: null,
+      nzOkText: null,
+      nzClosable: false,
+      nzFooter: null,
+      nzStyle: { top: '20px' },
+      nzWidth: 900,
+      nzContent: AddParentIdComponent,
+    });
   }
 
   changeContent(): void {
@@ -489,5 +523,20 @@ export class AdUnitsComponent implements OnInit {
         this.index = 'error';
       }
     }
+  }
+
+  filterButton(filter) {
+    let body = {
+      status: filter,
+    };
+    this.apiAdManager.filterListAdUnits(body).subscribe(
+      (resp) => {
+        console.log(resp);
+        this.listAdUnit = resp.message;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 }

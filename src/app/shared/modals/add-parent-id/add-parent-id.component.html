@@ -1,0 +1,62 @@
+<div nz-row nzAlign="middle" nzJustify="center">
+  <div nz-col nzSpan="18">
+    <p class="text-bold text-medium text-primary text-center">ParentId</p>
+  </div>
+</div>
+
+<form [formGroup]="formSearch" class="mt-3">
+  <div nz-row nzAlign="middle" nzGutter="23">
+    <div nz-col nzSpan="8" class="gutter-row">
+      <label>Ingrese el codigo de Id que desea buscar</label>
+      <input
+        nz-input
+        formControlName="search"
+        nzSize="large"
+        onkeypress="return (event.keyCode != 32 && ( (event.keyCode >= 48) && (event.keyCode <=57) ))"
+        placeholder=""
+      />
+    </div>
+
+    <div nz-col class="gutter-row">
+      <button (click)="searchParentId()" class="btn btn-primary mt-3">
+        Buscar
+      </button>
+    </div>
+  </div>
+</form>
+
+<div class="container-modal">
+  <div *ngIf="listParentId.length > 0" class="container mt-5">
+    <div class="option" *ngFor="let item of listParentId; let i = index">
+      <div class="title">
+        <div>
+          <p>{{ item.id }}</p>
+          <p>{{ item.name }}</p>
+        </div>
+        <div
+          (click)="activeAplicationId(i)"
+          class="container-icon text-primary"
+        >
+          <i *ngIf="item.selected" class="fas fa-check-circle"></i>
+          <i *ngIf="!item.selected" class="far fa-square"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mt-5 no-found" *ngIf="listParentId.length === 0 && touched">
+    <p>No hay registro con para este Id</p>
+  </div>
+</div>
+
+<div class="mt-4" nz-row nzAlign="middle" nzJustify="center">
+  <div class="mt-3" nz-row nzAlign="middle" nzJustify="center" nzGutter="28">
+    <div nz-col class="gutter-row">
+      <p (click)="canceledModal()" class="link">Cancelar</p>
+    </div>
+    <div nz-col class="gutter-row">
+      <button class="btn btn-primary" (click)="saveChangeModal()">
+        guardar
+      </button>
+    </div>
+  </div>
+</div>

@@ -15,8 +15,11 @@
 
   <div *ngIf="!apiBusy" class="mt-4" nz-row nzAlign="middle" nzJustify="center">
     <div nz-col class="text-center">
-      <p>Se ha cargado los datos exitosamente</p>
-      <button class="btn btn-primary mt-4">aceptar</button>
+      <p *ngIf="!msjError">Se ha cargado los datos exitosamente</p>
+      <p *ngIf="msjError">{{ msjError }}</p>
+      <button (click)="closeModal()" class="btn btn-primary mt-4">
+        aceptar
+      </button>
     </div>
   </div>
 </div>

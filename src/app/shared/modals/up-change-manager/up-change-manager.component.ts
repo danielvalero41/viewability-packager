@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NzModalRef } from 'ng-zorro-antd/modal';
 import { ApiAdManagerService } from 'src/app/home/services/api-ad-manager.service';
 
 @Component({
@@ -8,8 +9,12 @@ import { ApiAdManagerService } from 'src/app/home/services/api-ad-manager.servic
 })
 export class UpChangeManagerComponent implements OnInit {
   apiBusy: boolean = true;
+  msjError: string;
 
-  constructor(public apiAdManager: ApiAdManagerService) {}
+  constructor(
+    public apiAdManager: ApiAdManagerService,
+    private modal: NzModalRef
+  ) {}
 
   ngOnInit(): void {
     this.apiAdManager.loadAdunitsAdmanager().subscribe(
@@ -27,16 +32,22 @@ export class UpChangeManagerComponent implements OnInit {
                     this.apiBusy = false;
                   },
                   (error) => {
+                    this.msjError = error.error.message;
+                    this.apiBusy = false;
                     console.log(error);
                   }
                 );
               },
               (error) => {
+                this.msjError = error.error.message;
+                this.apiBusy = false;
                 console.log(error);
               }
             );
           },
           (error) => {
+            this.msjError = error.error.message;
+            this.apiBusy = false;
             console.log(error);
           }
         );
@@ -45,5 +56,9 @@ export class UpChangeManagerComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  closeModal() {
+    this.modal.destroy();
   }
 }

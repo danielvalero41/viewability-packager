@@ -13,7 +13,7 @@
     </div>
   </div>
 
-  <div *ngIf="true" class="mt-4" nz-row nzAlign="middle" nzJustify="center">
+  <div *ngIf="!apiBusy" class="mt-4" nz-row nzAlign="middle" nzJustify="center">
     <div nz-col class="text-center">
       <p>Se ha cargado los datos exitosamente</p>
       <button class="btn btn-primary mt-4" (click)="closeModal()">

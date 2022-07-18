@@ -13,6 +13,7 @@ export class LogsComponent implements OnInit {
   formDate: FormGroup;
   dateString;
   listDate;
+  touched: boolean;
   today = new Date();
 
   constructor(
@@ -25,7 +26,15 @@ export class LogsComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.f.date.setValue(this.today);
+    this.dateString = this.datePipe.transform(this.today, 'dd-MM-yyyy');
+    this.searchDate();
+  }
+
+  get f() {
+    return this.formDate.controls;
+  }
 
   disabledDate = (current: Date): boolean =>
     // Can not select days before today and today
@@ -43,6 +52,7 @@ export class LogsComponent implements OnInit {
       (resp) => {
         console.log(resp);
         this.listDate = resp.message[0];
+        this.touched = true;
       },
       (error) => {
         console.log(error);

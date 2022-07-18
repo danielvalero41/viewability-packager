@@ -108,13 +108,16 @@ export class PrincipalComponent implements OnInit {
   }
 
   subirCambios() {
-    this.modalService.create({
-      nzMaskClosable: false,
-      nzCancelText: null,
-      nzOkText: null,
-      nzClosable: false,
-      nzContent: UpChangeManagerComponent,
-    });
+    if (this.cambios_no_guardados > 0) {
+      this.modalService.create({
+        nzMaskClosable: false,
+        nzCancelText: null,
+        nzOkText: null,
+        nzClosable: false,
+        nzFooter: null,
+        nzContent: UpChangeManagerComponent,
+      });
+    }
   }
 
   configReport() {
@@ -148,7 +151,8 @@ export class PrincipalComponent implements OnInit {
       nzMaskClosable: false,
       nzCancelText: null,
       nzOkText: null,
-      nzClosable: true,
+      nzClosable: false,
+      nzFooter: null,
       nzOnCancel: (x) => {
         console.log('cerrar');
       },
@@ -157,7 +161,7 @@ export class PrincipalComponent implements OnInit {
   }
 
   downLoadReport() {
-    const url = `3.13.69.0:80/api/my-ad-manager/reporte`;
+    const url = `http://3.13.69.0:80/api/my-ad-manager/reporte`;
     fetch(url, {
       method: 'GET',
       headers: new Headers({

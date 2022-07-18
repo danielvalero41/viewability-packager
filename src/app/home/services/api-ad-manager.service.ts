@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -8,6 +8,8 @@ import { map } from 'rxjs/operators';
 })
 export class ApiAdManagerService {
   linkSelected: string;
+
+  parentId = new Subject<any>();
   _baseURL: string = 'http://3.13.69.0:80/api/my-ad-manager';
 
   constructor(private http: HttpClient) {}
@@ -131,6 +133,18 @@ export class ApiAdManagerService {
       .pipe(map((data) => data));
   }
 
+  loadParentId(body): Observable<any> {
+    const url = `${this._baseURL}/list-ad-units`;
+
+    return this.http
+      .post(url, body, {
+        headers: new HttpHeaders({
+          Accept: '*/*',
+        }),
+      })
+      .pipe(map((data) => data));
+  }
+
   listAdUnits(): Observable<any> {
     const url = `${this._baseURL}/list-ad-units`;
 
@@ -144,6 +158,18 @@ export class ApiAdManagerService {
           }),
         }
       )
+      .pipe(map((data) => data));
+  }
+
+  filterListAdUnits(body): Observable<any> {
+    const url = `${this._baseURL}/list-ad-units`;
+
+    return this.http
+      .post(url, body, {
+        headers: new HttpHeaders({
+          Accept: '*/*',
+        }),
+      })
       .pipe(map((data) => data));
   }
 
@@ -207,6 +233,30 @@ export class ApiAdManagerService {
       .pipe(map((data) => data));
   }
 
+  editarPlacements(body): Observable<any> {
+    const url = `${this._baseURL}/cargar-placements-mongo`;
+
+    return this.http
+      .post(url, body, {
+        headers: new HttpHeaders({
+          Accept: '*/*',
+        }),
+      })
+      .pipe(map((data) => data));
+  }
+
+  addRules(body): Observable<any> {
+    const url = `${this._baseURL}/cargar-rules-mongo`;
+
+    return this.http
+      .post(url, body, {
+        headers: new HttpHeaders({
+          Accept: '*/*',
+        }),
+      })
+      .pipe(map((data) => data));
+  }
+
   getListRules(): Observable<any> {
     const url = `${this._baseURL}/list-rules`;
 
@@ -236,6 +286,30 @@ export class ApiAdManagerService {
           }),
         }
       )
+      .pipe(map((data) => data));
+  }
+
+  filterListPlacements(body): Observable<any> {
+    const url = `${this._baseURL}/list-placements`;
+
+    return this.http
+      .post(url, body, {
+        headers: new HttpHeaders({
+          Accept: '*/*',
+        }),
+      })
+      .pipe(map((data) => data));
+  }
+
+  searchRules(body): Observable<any> {
+    const url = `${this._baseURL}/list-rules`;
+
+    return this.http
+      .post(url, body, {
+        headers: new HttpHeaders({
+          Accept: '*/*',
+        }),
+      })
       .pipe(map((data) => data));
   }
 }

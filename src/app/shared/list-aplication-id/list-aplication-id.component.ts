@@ -9,43 +9,7 @@ export class ListAplicationIdComponent implements OnInit {
   @Input() listMobile;
   @Output() sendDataMobile = new EventEmitter<any>();
 
-  listAplication = [
-    {
-      applicationId: 2387971452,
-      displayName: 'AztecaNoticias',
-      selected: false,
-    },
-    {
-      applicationId: 2387971452,
-      displayName: 'AztecaNoticias',
-      selected: true,
-    },
-    {
-      applicationId: 2387971452,
-      displayName: 'AztecaNoticias',
-      selected: false,
-    },
-    {
-      applicationId: 2387971452,
-      displayName: 'AztecaNoticias',
-      selected: false,
-    },
-    {
-      applicationId: 2387971452,
-      displayName: 'AztecaNoticias',
-      selected: false,
-    },
-    {
-      applicationId: 2387971452,
-      displayName: 'AztecaNoticias',
-      selected: false,
-    },
-    {
-      applicationId: 2387971452,
-      displayName: 'AztecaNoticias',
-      selected: false,
-    },
-  ];
+  indexTemp: any;
 
   constructor() {}
 
@@ -62,10 +26,13 @@ export class ListAplicationIdComponent implements OnInit {
   }
 
   activeAplicationId(index) {
-    this.listMobile.forEach((element) => {
-      element.selected = false;
-    });
+    if (this.indexTemp !== index) {
+      this.listMobile.forEach((element) => {
+        element.selected = false;
+      });
+    }
     this.listMobile[index].selected = !this.listMobile[index].selected;
+    this.indexTemp = index;
     this.sendDataMobile.emit(this.listMobile[index]);
   }
 }

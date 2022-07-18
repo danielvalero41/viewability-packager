@@ -113,13 +113,9 @@ export class ListAdUnitSizesComponent implements OnInit {
     console.log('listCompleta', this.listCompleta);
     console.log('list a mostrar', this.listAdSize);
     console.log(this._createAd);
-    if (this._createAd === true) {
-      this.listAdSize = this.listCompleta;
-      this.listAdSize = this.listAdSize.filter((x) => x.selected === true);
-    } else {
-      this.listAdSize = this.listCompleta;
-      this.listAdSize = this.listAdSize.filter((x) => x.selected === true);
-    }
+
+    this.listAdSize = this.listCompleta;
+    this.listAdSize = this.listAdSize.filter((x) => x.selected === true);
 
     // debugger;
     this.changeData.emit(this.listAdSize);
