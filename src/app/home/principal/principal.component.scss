@@ -40,6 +40,13 @@
   border: 3px solid #d4d4d4;
 }
 
+.apiButton {
+  display: flex;
+  justify-content: center;
+  max-width: 315px;
+  height: 84px;
+}
+
 .button-option {
   display: flex;
   gap: 15px;

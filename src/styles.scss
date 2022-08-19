@@ -5,7 +5,7 @@ body {
   font-size: 16px;
   margin: 0;
   background-image: url("/assets/img/fondo.png");
-  padding-top: 10px;
+  // padding-top: 10px;
   background-position: center left;
 }
 
@@ -151,6 +151,11 @@ p {
 }
 .ml-5 {
   margin-left: 40px;
+}
+
+//position
+.absolute {
+  position: absolute;
 }
 
 //Botones

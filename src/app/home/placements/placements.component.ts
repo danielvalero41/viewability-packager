@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { ErrorComponent } from 'src/app/shared/modals/error/error.component';
@@ -90,9 +90,10 @@ export class PlacementsComponent implements OnInit {
     console.log(data);
     this.apiAdManager.detailsPlacements(data).subscribe(
       (resp) => {
-        console.log(resp);
+        // console.log(resp);
         this.isAddPlacements = false;
         this.detailsPlacements = resp.message[0];
+        // this.listReglasCompletas = resp.message[0].rules;
         this.initFormPlacements(this.detailsPlacements);
       },
       (error) => {
@@ -110,10 +111,26 @@ export class PlacementsComponent implements OnInit {
   }
 
   editReglas() {
-    this.isVisible = true;
+    // this.isVisible = true;
+    this.apiAdManager.placementsConfig().subscribe(
+      (resp) => {
+        console.log(resp);
+        this.isVisible = true;
+        let listTemp = [...this.listReglas];
+        this.listReglas = [];
+        this.listReglas = listTemp;
+        this.listReglasCompletas = resp.message.reglas;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   closeModal(e) {
+    console.log('Cerro modal lista', this.listReglas);
+    console.log('Cerro modal lista', this.listReglasCompletas);
+
     this.isVisible = e;
   }
 
@@ -123,6 +140,7 @@ export class PlacementsComponent implements OnInit {
 
   changeData(data) {
     this.listReglas = data;
+    // debugger;
   }
 
   addPlacements() {

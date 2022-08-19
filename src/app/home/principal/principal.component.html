@@ -84,9 +84,17 @@
     <p>Configuración de reportes</p>
   </div>
 
-  <div (click)="downLoadReport()" class="button-option mt-3">
+  <div
+    *ngIf="!apiBusyButton"
+    (click)="downLoadReport()"
+    class="button-option mt-3"
+  >
     <i class="fas fa-arrow-alt-to-bottom"></i>
     <p>Generar reporte</p>
+  </div>
+
+  <div *ngIf="apiBusyButton" class="mt-3 apiButton">
+    <nz-spin nzSize="large" nzSimple></nz-spin>
   </div>
 </div>
 

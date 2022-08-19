@@ -51,7 +51,7 @@ export class LogsComponent implements OnInit {
     this.apiAdManager.getListLog(body).subscribe(
       (resp) => {
         console.log(resp);
-        this.listDate = resp.message[0];
+        this.listDate = resp.message;
         this.touched = true;
       },
       (error) => {

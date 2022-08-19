@@ -10,7 +10,7 @@ export class ApiAdManagerService {
   linkSelected: string;
 
   parentId = new Subject<any>();
-  _baseURL: string = 'http://3.13.69.0:80/api/my-ad-manager';
+  _baseURL: string = 'http://44.202.197.254:5000/api/my-ad-manager';
 
   constructor(private http: HttpClient) {}
 

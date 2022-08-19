@@ -54,6 +54,7 @@ export class PrincipalComponent implements OnInit {
   apiBusy: boolean;
   reset1: boolean;
   reset2: boolean;
+  apiBusyButton: boolean;
 
   constructor(
     public apiAdManager: ApiAdManagerService,
@@ -161,6 +162,7 @@ export class PrincipalComponent implements OnInit {
   }
 
   downLoadReport() {
+    this.apiBusyButton = true;
     const url = `http://3.13.69.0:80/api/my-ad-manager/reporte`;
     fetch(url, {
       method: 'GET',
@@ -170,6 +172,7 @@ export class PrincipalComponent implements OnInit {
     })
       .then((response) => response.blob())
       .then((blob) => {
+        this.apiBusyButton = false;
         var file = new Blob([blob], { type: 'application/zip' });
         var fileURL = URL.createObjectURL(file);
         var link = document.createElement('a');

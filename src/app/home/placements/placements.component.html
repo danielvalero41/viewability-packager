@@ -130,6 +130,7 @@
 
       <div class="mt-3">
         <list-reglas
+          *ngIf="listReglas"
           [listReglas]="listReglas"
           [listaCompleta]="listReglasCompletas"
           [isModal]="false"

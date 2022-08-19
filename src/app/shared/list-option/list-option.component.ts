@@ -32,7 +32,7 @@ export class ListOptionComponent implements OnInit {
     //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
     //Add '${implements OnChanges}' to the class.
     this.cdr.detectChanges();
-    console.log(changes);
+    // console.log(changes);
     if (changes.height_calculate) {
       this.height_calculate = changes.height_calculate.currentValue + 70;
       this.height_temp = this.height_calculate;

@@ -31,8 +31,13 @@ export class ListReglasComponent implements OnInit {
   listSelected = [];
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
+    // console.log(changes);
     // debugger;
+
+    if (!changes.listReglas) {
+      console.log(changes);
+      console.log('No existe');
+    }
 
     this.listSelected = [];
     if (changes.isModal?.currentValue === false) {
@@ -120,16 +125,14 @@ export class ListReglasComponent implements OnInit {
   }
 
   fixList() {
-    // debugger;
     this.listReglas.forEach((element) => {
       element.selected = true;
     });
-    console.log(this.listReglas);
+    // console.log(this.listReglas);
     // debugger;
   }
 
   fixListComplet() {
-    // debugger;
     if (this.listReglas?.length > 0 && this.listaCompleta) {
       this.listReglas.forEach((element) => {
         delete element.selected;
@@ -138,19 +141,19 @@ export class ListReglasComponent implements OnInit {
         let findId = this.listReglas.findIndex(
           (x) => x.desde === element.desde && x.hasta === element.hasta
         );
-        console.log(findId);
+        // console.log(findId);
         if (findId !== -1) {
           element.selected = true;
         } else {
           element.selected = false;
         }
       });
-      // // debugger;
     }
     // // debugger;
   }
 
   canceledModal() {
+    console.log(this.listReglas);
     this.closeModal.emit(false);
   }
 

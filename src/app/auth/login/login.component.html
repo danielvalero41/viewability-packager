@@ -1,0 +1,79 @@
+<div class="container">
+  <div class="container-login">
+    <div class="logo">
+      <img src="./assets/img/logo.png" alt="" />
+    </div>
+
+    <div nz-row nzAlign="middle" nzJustify="center">
+      <div nz-col>
+        <p class="text-bold text-medium text-fade">Gestor de Ad Manager</p>
+      </div>
+    </div>
+
+    <div class="mt-3 text-center" nz-row nzAlign="middle" nzJustify="center">
+      <div nz-col nzSpan="24">
+        <p class="text-bold text-medium text-primary">Iniciar sesión</p>
+        <div class="absolute-msj-error" *ngIf="msjError">
+          <small class="text-danger">{{ msjError }}</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-4">
+      <form [formGroup]="formLogin" autocomplete="off">
+        <div nz-row nzAlign="middle">
+          <div nz-col nzSpan="24">
+            <label class="text-bold text-primary">Correo electrónico *</label>
+            <input
+              nz-input
+              formControlName="email"
+              nzSize="large"
+              placeholder="Ingresar correo electrónico"
+            />
+            <div class="absolute" *ngIf="f.email.invalid && f.email.touched">
+              <small *ngIf="f.email.errors?.required" class="text-danger"
+                >Campo requerido</small
+              >
+              <small *ngIf="f.email.errors?.pattern" class="text-danger"
+                >Formato de correo inválido (ejemplo@mail.com)</small
+              >
+            </div>
+          </div>
+        </div>
+
+        <div nz-row class="mt-3" nzAlign="middle">
+          <div nz-col class="form-password" nzSpan="24">
+            <label class="text-bold text-primary">Contraseña *</label>
+            <input
+              nz-input
+              [type]="type ? 'text' : 'password'"
+              formControlName="password"
+              nzSize="large"
+              placeholder="contraseña"
+            />
+            <div (click)="changeType()" class="hidden-password">
+              <i *ngIf="!type" class="fas fa-eye"></i>
+              <i *ngIf="type" class="fas fa-eye-slash"></i>
+            </div>
+            <div
+              class="absolute"
+              *ngIf="f.password.invalid && f.password.touched"
+            >
+              <small *ngIf="f.password.errors?.required" class="text-danger"
+                >Campo requerido</small
+              >
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <div nz-row class="mt-5" nzAlign="middle" nzJustify="center">
+        <div nz-col>
+          <button class="btn btn-primary" (click)="login()">
+            Iniciar sesión
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -20,8 +20,8 @@
   </form>
 
   <div class="content mt-4">
-    <pre *ngIf="listDate">{{ listDate | json }}</pre>
-    <p *ngIf="!listDate && touched">
+    <pre *ngIf="listDate.length > 0">{{ listDate | json }}</pre>
+    <p *ngIf="listDate.length == 0 && touched">
       No hay registro disponibles para esta fecha
     </p>
     <div *ngIf="!touched" class="text-center">

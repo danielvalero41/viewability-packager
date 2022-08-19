@@ -1,0 +1,41 @@
+@import "/src/variables.scss";
+
+.container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("/assets/img/fondo-login.svg");
+  .container-login {
+    background: white;
+    height: fit-content;
+    padding: 40px 70px;
+    border-radius: 32px;
+
+    .logo {
+      display: flex;
+      justify-content: center;
+      img {
+        width: 20%;
+      }
+    }
+  }
+}
+
+.absolute-msj-error {
+  position: absolute;
+  right: 56px;
+}
+
+.form-password {
+  position: relative;
+  .hidden-password {
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    i {
+      color: #707070;
+      cursor: pointer;
+    }
+  }
+}
