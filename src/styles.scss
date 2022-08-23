@@ -171,6 +171,19 @@ p {
   font-size: 16px;
 }
 
+button:disabled,
+button[disabled] {
+  border: 1px solid #ecf0f1;
+  background-color: #ecf0f1;
+  color: #707070;
+
+  &:hover {
+    border: 1px solid #ecf0f1;
+    background-color: #ecf0f1;
+    color: #707070;
+  }
+}
+
 .btn-primary {
   background-color: $primary;
   border-color: $primary;

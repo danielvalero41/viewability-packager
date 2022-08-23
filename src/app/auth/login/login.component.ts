@@ -1,5 +1,7 @@
+import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { NzModalService } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +14,11 @@ export class LoginComponent implements OnInit {
   type: boolean = false;
   msjError: string;
 
-  constructor(public fb: FormBuilder) {
+  constructor(
+    public fb: FormBuilder,
+    private modalService: NzModalService,
+    public route: Router
+  ) {
     this.formLogin = this.fb.group({
       email: [
         '',
@@ -42,7 +48,7 @@ export class LoginComponent implements OnInit {
     this.type = !this.type;
   }
 
-  login() {
+  login(closeIcon, modal) {
     let test = {
       email: 'a@gmail.com',
       password: '1234',
@@ -52,9 +58,29 @@ export class LoginComponent implements OnInit {
       test.email === this.f.email.value &&
       test.password === this.f.password.value
     ) {
-      alert('Abrir modal');
+      this.route.navigate(['login/change-password']);
+      // this.modalService.create({
+      //   nzCancelText: null,
+      //   nzOkText: null,
+      //   nzFooter: null,
+      //   nzWidth: 400,
+      //   // nzCloseIcon: closeIcon,
+      //   nzContent: modal,
+      // });
     } else {
       this.msjError = '¡Datos Incorrectos, intenta nuevamente!';
     }
+  }
+
+  recovery() {
+    this.route.navigate(['login/recovery']);
+  }
+
+  closeRefModal(id) {
+    this.destroyModal(id);
+  }
+
+  destroyModal(id) {
+    id.destroy();
   }
 }

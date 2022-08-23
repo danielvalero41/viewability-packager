@@ -12,15 +12,22 @@
 
     <div class="mt-3 text-center" nz-row nzAlign="middle" nzJustify="center">
       <div nz-col nzSpan="24">
-        <p class="text-bold text-medium text-primary">Iniciar sesión</p>
-        <div class="absolute-msj-error" *ngIf="msjError">
-          <small class="text-danger">{{ msjError }}</small>
-        </div>
+        <p class="text-bold text-medium text-primary">Recuperar contraseña</p>
+        <!-- <div class="absolute-msj-error" *ngIf="msjError">
+            <small class="text-danger">{{ msjError }}</small>
+          </div> -->
       </div>
     </div>
 
     <div class="mt-4">
-      <form [formGroup]="formLogin" autocomplete="off">
+      <div nz-row nzAlign="middle">
+        <div nz-col>
+          <p class="text-primary">
+            Ingresar correo para gestionar recuperación de la contraseña
+          </p>
+        </div>
+      </div>
+      <form [formGroup]="formRecovery" autocomplete="off">
         <div nz-row nzAlign="middle">
           <div nz-col nzSpan="24">
             <label class="text-bold text-primary">Correo electrónico *</label>
@@ -40,46 +47,16 @@
             </div>
           </div>
         </div>
-
-        <div nz-row class="mt-3" nzAlign="middle">
-          <div nz-col class="form-password" nzSpan="24">
-            <label class="text-bold text-primary">Contraseña *</label>
-            <input
-              nz-input
-              [type]="type ? 'text' : 'password'"
-              formControlName="password"
-              nzSize="large"
-              placeholder="contraseña"
-            />
-            <div (click)="changeType()" class="hidden-password">
-              <i *ngIf="!type" class="fas fa-eye"></i>
-              <i *ngIf="type" class="fas fa-eye-slash"></i>
-            </div>
-            <div
-              class="absolute"
-              *ngIf="f.password.invalid && f.password.touched"
-            >
-              <small *ngIf="f.password.errors?.required" class="text-danger"
-                >Campo requerido</small
-              >
-            </div>
-          </div>
-        </div>
-        <div nz-row class="mt-1" nzAlign="middle" nzJustify="end">
-          <div nz-col>
-            <p class="link" (click)="recovery()">¿Olvidaste tu contraseña?</p>
-          </div>
-        </div>
       </form>
 
       <div nz-row class="mt-5" nzAlign="middle" nzJustify="center">
         <div nz-col>
           <button
-            [disabled]="!formLogin.valid"
+            [disabled]="!formRecovery.valid"
             class="btn btn-primary"
-            (click)="login(closeIcon, approve)"
+            (click)="sendEmail(sendEmailSuccess, sendEmailReject)"
           >
-            Iniciar sesión
+            Enviar
           </button>
         </div>
       </div>
@@ -89,15 +66,19 @@
 
 <!-- MODALES -->
 
-<ng-template #approve let-ref="modalRef">
+<ng-template #sendEmailSuccess let-ref="modalRef">
   <div class="modal-icon">
-    <i class="far fa-check-circle"></i>
+    <i class="far fa-check-circle success"></i>
   </div>
 
   <div class="mt-4" nz-row nzAlign="middle" nzJustify="center">
     <div nz-col nzSpan="12">
+      <p class="text-primary text-center text-bold">
+        ¡Correo enviado con Éxito!
+      </p>
+
       <p class="text-primary text-center">
-        Su contraseña se ha guardado correctamente
+        Se ha enviado un código para recuperar contraseña
       </p>
     </div>
   </div>
@@ -111,8 +92,22 @@
   </div>
 </ng-template>
 
-<ng-template #closeIcon>
-  <div class="close-modal">
-    <i class="fas fa-times-circle"></i>
+<ng-template #sendEmailReject let-ref="modalRef">
+  <div class="modal-icon">
+    <i class="far fa-times-circle reject"></i>
+  </div>
+
+  <div class="mt-4" nz-row nzAlign="middle" nzJustify="center">
+    <div nz-col nzSpan="12">
+      <p class="text-primary text-center text-bold">¡Error al enviar correo!</p>
+    </div>
+  </div>
+
+  <div nz-row class="mt-2" nzAlign="middle" nzJustify="center">
+    <div nz-col>
+      <div>
+        <button (click)="closeRefModal(ref)" class="btn btn-primary">Ok</button>
+      </div>
+    </div>
   </div>
 </ng-template>

@@ -44,8 +44,13 @@
   display: flex;
   justify-content: center;
   i {
-    color: #40bc5a;
     font-size: 50px;
+  }
+  .success {
+    color: #40bc5a;
+  }
+  .reject {
+    color: #ef2a2e;
   }
 }
 
