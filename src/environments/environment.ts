@@ -3,7 +3,16 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  domain: 'https://viewability-packager.auth.us-east-1.amazoncognito.com/',
+  userPoolID: 'us-east-1_LdwAVVC0E',
+  cliendId: '6i0h3lt95fa3cj3gr2oj0577to',
+  clientName: 'client-viewability-packager',
+  // region: '',
+  // apiName: '',
+  // apiEndpoint: '',
+  // storageBucket: '',
+  // identityPoolId: '',
 };
 
 /*

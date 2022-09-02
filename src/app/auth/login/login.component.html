@@ -13,7 +13,7 @@
     <div class="mt-3 text-center" nz-row nzAlign="middle" nzJustify="center">
       <div nz-col nzSpan="24">
         <p class="text-bold text-medium text-primary">Iniciar sesión</p>
-        <div class="absolute-msj-error" *ngIf="msjError">
+        <div class="text-center" *ngIf="msjError">
           <small class="text-danger">{{ msjError }}</small>
         </div>
       </div>
@@ -74,7 +74,11 @@
 
       <div nz-row class="mt-5" nzAlign="middle" nzJustify="center">
         <div nz-col>
+          <div *ngIf="apiBusy" class="text-center">
+            <nz-spin nzSize="large" nzSimple></nz-spin>
+          </div>
           <button
+            *ngIf="!apiBusy"
             [disabled]="!formLogin.valid"
             class="btn btn-primary"
             (click)="login(closeIcon, approve)"

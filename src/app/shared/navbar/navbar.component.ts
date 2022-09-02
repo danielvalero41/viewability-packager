@@ -1,3 +1,4 @@
+import { LoginService } from './../../auth/services/login.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiAdManagerService } from 'src/app/home/services/api-ad-manager.service';
@@ -12,7 +13,8 @@ export class NavbarComponent implements OnInit {
 
   constructor(
     public router: Router,
-    public apiAdManager: ApiAdManagerService
+    public apiAdManager: ApiAdManagerService,
+    public apiLogin: LoginService
   ) {}
 
   ngOnInit(): void {
@@ -22,6 +24,10 @@ export class NavbarComponent implements OnInit {
 
   toNavigate(link) {
     this.optionSelected = link;
-    this.router.navigate([link]);
+    this.router.navigate(['home/' + link]);
+  }
+
+  logout() {
+    this.apiLogin.logoutUser();
   }
 }

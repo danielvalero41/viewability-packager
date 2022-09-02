@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-admanager-dev-154224-authRole",
+      "UnauthRoleArn": "arn:aws:iam::935236748585:role/amplify-admanager-dev-154224-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::935236748585:role/amplify-admanager-dev-154224-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-admanager-dev-154224-deployment",
+      "UnauthRoleName": "amplify-admanager-dev-154224-unauthRole",
+      "StackName": "amplify-admanager-dev-154224",
+      "StackId": "arn:aws:cloudformation:us-east-1:935236748585:stack/amplify-admanager-dev-154224/1e134e90-2324-11ed-b7ee-0e0eebec6833",
+      "AmplifyAppId": "d37e9nsn1r2mss"
+    },
+    "categories": {
+      "auth": {
+        "admanager7a392a26": {}
+      }
+    }
+  }
+}

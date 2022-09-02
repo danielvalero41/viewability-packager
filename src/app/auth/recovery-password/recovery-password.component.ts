@@ -1,7 +1,9 @@
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
-
+import { Auth } from 'aws-amplify';
+import { LoginService } from '../services/login.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-recovery-password',
   templateUrl: './recovery-password.component.html',
@@ -12,12 +14,36 @@ export class RecoveryPasswordComponent implements OnInit {
   type1: boolean = false;
   type2: boolean = false;
   equalsPassword: boolean = true;
+  apiBusy: boolean;
 
-  constructor(public fb: FormBuilder, private modalService: NzModalService) {
+  constructor(
+    public fb: FormBuilder,
+    private modalService: NzModalService,
+    public apiLogin: LoginService,
+    public route: Router
+  ) {
     this.formRecoveryPassword = this.fb.group({
       code: ['', Validators.required],
-      newPassword: ['', [Validators.required, Validators.minLength(8)]],
-      confirPassword: ['', [Validators.required, Validators.minLength(8)]],
+      newPassword: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(8),
+          Validators.pattern(
+            '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$'
+          ),
+        ],
+      ],
+      confirPassword: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(8),
+          Validators.pattern(
+            '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$'
+          ),
+        ],
+      ],
     });
   }
 
@@ -44,34 +70,102 @@ export class RecoveryPasswordComponent implements OnInit {
   }
 
   changePass(modalSuccess, modalReject) {
-    let test = {
-      password: 'asdfasdf',
-    };
+    this.apiBusy = true;
+    Auth.forgotPasswordSubmit(
+      this.apiLogin.userName,
+      this.f.code.value,
+      this.f.newPassword.value
+    )
+      .then((data) => {
+        this.apiBusy = false;
+        console.log(data);
+        this.modalService.create({
+          nzCancelText: null,
+          nzOkText: null,
+          nzFooter: null,
+          nzWidth: 400,
+          nzContent: modalSuccess,
+        });
+      })
+      .catch((err) => {
+        this.apiBusy = false;
+        console.log(err);
+        this.modalService.create({
+          nzCancelText: null,
+          nzOkText: null,
+          nzFooter: null,
+          nzWidth: 400,
+          nzContent: modalReject,
+        });
+      });
 
-    if (this.f.newPassword.value === test.password) {
-      this.modalService.create({
-        nzCancelText: null,
-        nzOkText: null,
-        nzFooter: null,
-        nzWidth: 400,
-        nzContent: modalSuccess,
-      });
-    } else {
-      this.modalService.create({
-        nzCancelText: null,
-        nzOkText: null,
-        nzFooter: null,
-        nzWidth: 400,
-        nzContent: modalReject,
-      });
-    }
+    // Auth.verifyCurrentUserAttributeSubmit(
+    //   this.apiLogin.attribute,
+    //   this.f.code.value
+    // )
+    //   .then((resp) => {
+    //     console.log(resp);
+
+    //     Auth.currentAuthenticatedUser()
+    //       .then((resp) => {
+    //         console.log(resp);
+    //         debugger;
+    //       })
+    //       .catch((error) => {
+    //         console.log(error);
+    //       });
+
+    //   })
+    //   .catch((e) => {
+    //     console.log('failed with error', e);
+
+    //   });
+
+    // // if (this.f.newPassword.value === test.password) {
+    // //   this.modalService.create({
+    // //     nzCancelText: null,
+    // //     nzOkText: null,
+    // //     nzFooter: null,
+    // //     nzWidth: 400,
+    // //     nzContent: modalSuccess,
+    // //   });
+    // // } else {
+    // //   this.modalService.create({
+    // //     nzCancelText: null,
+    // //     nzOkText: null,
+    // //     nzFooter: null,
+    // //     nzWidth: 400,
+    // //     nzContent: modalReject,
+    // //   });
+    // // }
   }
 
   closeRefModal(id) {
     this.destroyModal(id);
   }
 
+  async toLogin(id) {
+    // try {
+    //   await Auth.confirmSignUp(this.apiLogin.userName, this.f.code.value);
+    // } catch (error) {
+    //   console.log('error confirming sign up', error);
+    // }
+
+    Auth.currentAuthenticatedUser()
+      .then((user) => {
+        this.route.navigate(['/login']);
+        this.destroyModal(id);
+      })
+      .catch((err) => {
+        console.log(err);
+        this.destroyModal(id);
+      });
+  }
+
   destroyModal(id) {
     id.destroy();
+  }
+  toBackLogin() {
+    this.route.navigate(['/login']);
   }
 }

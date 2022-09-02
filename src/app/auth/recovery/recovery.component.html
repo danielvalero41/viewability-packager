@@ -49,9 +49,23 @@
         </div>
       </form>
 
-      <div nz-row class="mt-5" nzAlign="middle" nzJustify="center">
-        <div nz-col>
+      <div
+        nz-row
+        class="mt-5"
+        nzAlign="middle"
+        nzJustify="center"
+        nzGutter="23"
+      >
+        <div nz-col class="gutter-row">
+          <p (click)="toLogin()" class="text-link">Cancelar</p>
+        </div>
+
+        <div nz-col class="gutter-row">
+          <div *ngIf="apiBusy" class="text-center">
+            <nz-spin nzSize="large" nzSimple></nz-spin>
+          </div>
           <button
+            *ngIf="!apiBusy"
             [disabled]="!formRecovery.valid"
             class="btn btn-primary"
             (click)="sendEmail(sendEmailSuccess, sendEmailReject)"
@@ -86,7 +100,9 @@
   <div nz-row class="mt-2" nzAlign="middle" nzJustify="center">
     <div nz-col>
       <div>
-        <button (click)="closeRefModal(ref)" class="btn btn-primary">Ok</button>
+        <button (click)="toRecoveryPassword(ref)" class="btn btn-primary">
+          Ok
+        </button>
       </div>
     </div>
   </div>

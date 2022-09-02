@@ -1,3 +1,4 @@
+import { LoginService } from './../../auth/services/login.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
@@ -10,12 +11,15 @@ export class ApiAdManagerService {
   linkSelected: string;
 
   parentId = new Subject<any>();
-  _baseURL: string = 'http://44.202.197.254:5000/api/my-ad-manager';
+  _baseURL: string =
+    'http://viewability-packager.tvazteca.digital/api/my-ad-manager';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, public apiLogin: LoginService) {}
 
   networkMain(): Observable<any> {
-    const url = `${this._baseURL}/network/info`;
+    const url = `${
+      this._baseURL
+    }/network/info?key=${this.apiLogin.getKeyToken()}`;
 
     return this.http
       .get(url, {
@@ -27,7 +31,9 @@ export class ApiAdManagerService {
   }
 
   resetPlacements(): Observable<any> {
-    const url = `${this._baseURL}/reset-placements-bd`;
+    const url = `${
+      this._baseURL
+    }/reset-placements-bd?key=${this.apiLogin.getKeyToken()}`;
 
     return this.http
       .get(url, {
@@ -39,7 +45,9 @@ export class ApiAdManagerService {
   }
 
   resetAdUnits(): Observable<any> {
-    const url = `${this._baseURL}/reset-ad-units-bd`;
+    const url = `${
+      this._baseURL
+    }/reset-ad-units-bd?key=${this.apiLogin.getKeyToken()}`;
 
     return this.http
       .get(url, {
@@ -51,7 +59,9 @@ export class ApiAdManagerService {
   }
 
   getListConfigReport(): Observable<any> {
-    const url = `${this._baseURL}/list-config-reporte`;
+    const url = `${
+      this._baseURL
+    }/list-config-reporte?key=${this.apiLogin.getKeyToken()}`;
 
     return this.http
       .post(
@@ -67,7 +77,9 @@ export class ApiAdManagerService {
   }
 
   loadConfigReport(body): Observable<any> {
-    const url = `${this._baseURL}/cargar-config-reporte`;
+    const url = `${
+      this._baseURL
+    }/cargar-config-reporte?key=${this.apiLogin.getKeyToken()}`;
 
     return this.http
       .post(url, body, {
@@ -79,7 +91,7 @@ export class ApiAdManagerService {
   }
 
   getListLog(body): Observable<any> {
-    const url = `${this._baseURL}/list-logs`;
+    const url = `${this._baseURL}/list-logs?key=${this.apiLogin.getKeyToken()}`;
     return this.http
       .post(url, body, {
         headers: new HttpHeaders({
@@ -90,7 +102,9 @@ export class ApiAdManagerService {
   }
 
   loadPlacementsAdmanager(): Observable<any> {
-    const url = `${this._baseURL}/cargar-placements-admanager`;
+    const url = `${
+      this._baseURL
+    }/cargar-placements-admanager?key=${this.apiLogin.getKeyToken()}`;
 
     return this.http
       .post(
@@ -106,7 +120,9 @@ export class ApiAdManagerService {
   }
 
   loadAdunitsAdmanager(): Observable<any> {
-    const url = `${this._baseURL}/cargar-ad-units-admanager`;
+    const url = `${
+      this._baseURL
+    }/cargar-ad-units-admanager?key=${this.apiLogin.getKeyToken()}`;
 
     return this.http
       .post(
@@ -122,7 +138,7 @@ export class ApiAdManagerService {
   }
 
   getReport(body): Observable<any> {
-    const url = `${this._baseURL}/reporte`;
+    const url = `${this._baseURL}/reporte?key=${this.apiLogin.getKeyToken()}`;
 
     return this.http
       .get(url, {
@@ -134,7 +150,9 @@ export class ApiAdManagerService {
   }
 
   loadParentId(body): Observable<any> {
-    const url = `${this._baseURL}/list-ad-units`;
+    const url = `${
+      this._baseURL
+    }/list-ad-units?key=${this.apiLogin.getKeyToken()}`;
 
     return this.http
       .post(url, body, {
@@ -146,7 +164,9 @@ export class ApiAdManagerService {
   }
 
   listAdUnits(): Observable<any> {
-    const url = `${this._baseURL}/list-ad-units`;
+    const url = `${
+      this._baseURL
+    }/list-ad-units?key=${this.apiLogin.getKeyToken()}`;
 
     return this.http
       .post(
@@ -162,7 +182,9 @@ export class ApiAdManagerService {
   }
 
   filterListAdUnits(body): Observable<any> {
-    const url = `${this._baseURL}/list-ad-units`;
+    const url = `${
+      this._baseURL
+    }/list-ad-units?key=${this.apiLogin.getKeyToken()}`;
 
     return this.http
       .post(url, body, {
@@ -174,7 +196,9 @@ export class ApiAdManagerService {
   }
 
   adUnitsConfig(): Observable<any> {
-    const url = `${this._baseURL}/ad-units/config`;
+    const url = `${
+      this._baseURL
+    }/ad-units/config?key=${this.apiLogin.getKeyToken()}`;
 
     return this.http
       .get(url, {
@@ -186,7 +210,9 @@ export class ApiAdManagerService {
   }
 
   placementsConfig(): Observable<any> {
-    const url = `${this._baseURL}/placements/config`;
+    const url = `${
+      this._baseURL
+    }/placements/config?key=${this.apiLogin.getKeyToken()}`;
 
     return this.http
       .get(url, {
@@ -198,7 +224,9 @@ export class ApiAdManagerService {
   }
 
   detailsAdUnit(body): Observable<any> {
-    const url = `${this._baseURL}/list-ad-units`;
+    const url = `${
+      this._baseURL
+    }/list-ad-units?key=${this.apiLogin.getKeyToken()}`;
 
     return this.http
       .post(url, body, {
@@ -210,7 +238,9 @@ export class ApiAdManagerService {
   }
 
   detailsPlacements(body): Observable<any> {
-    const url = `${this._baseURL}/list-placements`;
+    const url = `${
+      this._baseURL
+    }/list-placements?key=${this.apiLogin.getKeyToken()}`;
 
     return this.http
       .post(url, body, {
@@ -222,7 +252,9 @@ export class ApiAdManagerService {
   }
 
   editarAdUnit(body): Observable<any> {
-    const url = `${this._baseURL}/cargar-ad-units-mongo`;
+    const url = `${
+      this._baseURL
+    }/cargar-ad-units-mongo?key=${this.apiLogin.getKeyToken()}`;
 
     return this.http
       .post(url, body, {
@@ -234,7 +266,9 @@ export class ApiAdManagerService {
   }
 
   editarPlacements(body): Observable<any> {
-    const url = `${this._baseURL}/cargar-placements-mongo`;
+    const url = `${
+      this._baseURL
+    }/cargar-placements-mongo?key=${this.apiLogin.getKeyToken()}`;
 
     return this.http
       .post(url, body, {
@@ -246,7 +280,9 @@ export class ApiAdManagerService {
   }
 
   addRules(body): Observable<any> {
-    const url = `${this._baseURL}/cargar-rules-mongo`;
+    const url = `${
+      this._baseURL
+    }/cargar-rules-mongo?key=${this.apiLogin.getKeyToken()}`;
 
     return this.http
       .post(url, body, {
@@ -258,7 +294,9 @@ export class ApiAdManagerService {
   }
 
   getListRules(): Observable<any> {
-    const url = `${this._baseURL}/list-rules`;
+    const url = `${
+      this._baseURL
+    }/list-rules?key=${this.apiLogin.getKeyToken()}`;
 
     return this.http
       .post(
@@ -274,7 +312,9 @@ export class ApiAdManagerService {
   }
 
   getListPlacements(): Observable<any> {
-    const url = `${this._baseURL}/list-placements`;
+    const url = `${
+      this._baseURL
+    }/list-placements?key=${this.apiLogin.getKeyToken()}`;
 
     return this.http
       .post(
@@ -290,7 +330,9 @@ export class ApiAdManagerService {
   }
 
   filterListPlacements(body): Observable<any> {
-    const url = `${this._baseURL}/list-placements`;
+    const url = `${
+      this._baseURL
+    }/list-placements?key=${this.apiLogin.getKeyToken()}`;
 
     return this.http
       .post(url, body, {
@@ -302,7 +344,9 @@ export class ApiAdManagerService {
   }
 
   searchRules(body): Observable<any> {
-    const url = `${this._baseURL}/list-rules`;
+    const url = `${
+      this._baseURL
+    }/list-rules?key=${this.apiLogin.getKeyToken()}`;
 
     return this.http
       .post(url, body, {
