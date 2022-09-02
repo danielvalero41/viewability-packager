@@ -144,22 +144,14 @@ export class RecoveryPasswordComponent implements OnInit {
     this.destroyModal(id);
   }
 
-  async toLogin(id) {
+  toLogin(id) {
     // try {
     //   await Auth.confirmSignUp(this.apiLogin.userName, this.f.code.value);
     // } catch (error) {
     //   console.log('error confirming sign up', error);
     // }
-
-    Auth.currentAuthenticatedUser()
-      .then((user) => {
-        this.route.navigate(['/login']);
-        this.destroyModal(id);
-      })
-      .catch((err) => {
-        console.log(err);
-        this.destroyModal(id);
-      });
+    this.route.navigate(['/login']);
+    this.destroyModal(id);
   }
 
   destroyModal(id) {
