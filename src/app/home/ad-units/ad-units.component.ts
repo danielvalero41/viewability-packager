@@ -528,7 +528,6 @@ export class AdUnitsComponent implements OnInit {
   }
 
   filterButton(filter) {
-    this.cleanSearch = true;
     let body = {
       status: filter,
     };
