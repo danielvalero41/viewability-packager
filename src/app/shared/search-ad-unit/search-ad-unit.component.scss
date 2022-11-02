@@ -1,0 +1,17 @@
+@import "/src/variables.scss";
+
+.search::placeholder {
+  color: $primary;
+  font-size: 16px;
+}
+
+.search-icon {
+  i {
+    color: $primary;
+    font-size: 16px;
+  }
+}
+
+::ng-deep .ant-input-affix-wrapper {
+  border-radius: 6px;
+}

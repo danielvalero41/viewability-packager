@@ -1,0 +1,21 @@
+<div>
+  <form [formGroup]="formSearch">
+    <nz-input-group [nzSuffix]="iconSearch">
+      <input
+        class="search"
+        type="text"
+        formControlName="searchField"
+        (keyup.enter)="searchEnter()"
+        (input)="detectKey()"
+        nz-input
+        nzSize="large"
+        placeholder="Buscar"
+      />
+    </nz-input-group>
+    <ng-template #iconSearch>
+      <div class="search-icon">
+        <i class="fas fa-search"></i>
+      </div>
+    </ng-template>
+  </form>
+</div>

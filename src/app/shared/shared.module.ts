@@ -15,6 +15,7 @@ import { ListAplicationIdComponent } from './list-aplication-id/list-aplication-
 import { NgxMaskModule } from 'ngx-mask';
 import { AddParentIdComponent } from './modals/add-parent-id/add-parent-id.component';
 import { ErrorComponent } from './modals/error/error.component';
+import { SearchAdUnitComponent } from './search-ad-unit/search-ad-unit.component';
 @NgModule({
   declarations: [
     ListOptionComponent,
@@ -27,6 +28,7 @@ import { ErrorComponent } from './modals/error/error.component';
     ListAplicationIdComponent,
     AddParentIdComponent,
     ErrorComponent,
+    SearchAdUnitComponent,
   ],
   imports: [
     CommonModule,
@@ -45,6 +47,7 @@ import { ErrorComponent } from './modals/error/error.component';
     NavbarComponent,
     RouterModule,
     ListAplicationIdComponent,
+    SearchAdUnitComponent,
   ],
 })
 export class SharedModule {}

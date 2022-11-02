@@ -1,6 +1,5 @@
 <div class="container">
-  <div>
-    <!-- <nz-spin *ngIf="!listAdUnit" nzSize="large" nzSimple></nz-spin> -->
+  <div class="width-content">
     <div *ngIf="listAdUnit" class="filter">
       <p class="text-bold">Filtrar por:</p>
       <div class="filter-buttons">
@@ -9,6 +8,15 @@
         <button class="inactive" (click)="filterButton('INACTIVE')"></button>
       </div>
     </div>
+
+    <div class="mb-1">
+      <search-ad-unit
+        [cleanSearch]="cleanSearch"
+        (search)="recivedSearch($event)"
+        (detectedKey)="detectKey($event)"
+      ></search-ad-unit>
+    </div>
+
     <list-option
       *ngIf="listAdUnit"
       (adUnitSelect)="recivedAdUnit($event)"

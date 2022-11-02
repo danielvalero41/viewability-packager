@@ -46,6 +46,8 @@ export class AdUnitsComponent implements OnInit {
 
   height_calculate: any = 0;
 
+  cleanSearch: boolean;
+
   constructor(
     public fb: FormBuilder,
     public apiAdManager: ApiAdManagerService,
@@ -526,6 +528,7 @@ export class AdUnitsComponent implements OnInit {
   }
 
   filterButton(filter) {
+    this.cleanSearch = true;
     let body = {
       status: filter,
     };
@@ -533,10 +536,47 @@ export class AdUnitsComponent implements OnInit {
       (resp) => {
         console.log(resp);
         this.listAdUnit = resp.message;
+        this.cleanSearch = true;
       },
       (error) => {
         console.log(error);
       }
     );
+  }
+
+  recivedSearch(data) {
+    this.cleanSearch = data.reset;
+    var body;
+    var regex = /^[0-9]+$/;
+    if (data.search.match(regex)) {
+      body = {
+        id: {
+          $regex: data.search,
+          $options: 'i',
+        },
+      };
+    } else {
+      body = {
+        name: {
+          $regex: data.search,
+          $options: 'i',
+        },
+      };
+    }
+
+    this.apiAdManager.filterListAdUnits(body).subscribe(
+      (resp) => {
+        console.log(resp);
+        this.listAdUnit = resp.message;
+        this.cleanSearch = true;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  detectKey(e) {
+    this.cleanSearch = e;
   }
 }
