@@ -27,10 +27,11 @@
 
   .nav-list {
     display: flex;
-    gap: 75px;
+    gap: 55px;
 
     .item {
       cursor: pointer;
+      font-size: 20px;
       &.selected {
         color: #1465b7;
       }

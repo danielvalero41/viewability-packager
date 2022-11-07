@@ -16,6 +16,7 @@ import { NgxMaskModule } from 'ngx-mask';
 import { AddParentIdComponent } from './modals/add-parent-id/add-parent-id.component';
 import { ErrorComponent } from './modals/error/error.component';
 import { SearchAdUnitComponent } from './search-ad-unit/search-ad-unit.component';
+import { ListAdSizeFavoriteComponent } from './modals/list-ad-size-favorite/list-ad-size-favorite.component';
 @NgModule({
   declarations: [
     ListOptionComponent,
@@ -29,6 +30,7 @@ import { SearchAdUnitComponent } from './search-ad-unit/search-ad-unit.component
     AddParentIdComponent,
     ErrorComponent,
     SearchAdUnitComponent,
+    ListAdSizeFavoriteComponent,
   ],
   imports: [
     CommonModule,

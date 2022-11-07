@@ -117,6 +117,29 @@ export class AdUnitsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.apiAdManager.updateListFav.subscribe((resp) => {
+      if (resp) {
+        this.apiAdManager.adUnitsConfig().subscribe(
+          (resp) => {
+            console.log('carga la data general', resp);
+            this.listAdSense = resp.message.adSenseEnabled;
+            this.listTargetWindow = resp.message.targetWindow;
+            this.listStatus = resp.message.status;
+            this.listAdSenseSource = resp.message.adSenseSettingsSource;
+            this.listSmartSize = resp.message.smartSizeMode;
+            this.listAdType = resp.message.adType;
+            this.listBorderStyle = resp.message.borderStyle;
+            this.listFontFamily = resp.message.fontFamily;
+            this.listFontSize = resp.message.fontSize;
+            this.listMobile = resp.message.mobileApps.results;
+            this.listAdSizeCompleta = resp.message.adUnitSizes;
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+      }
+    });
     this.loadData();
 
     this.apiAdManager.parentId.subscribe((resp) => {

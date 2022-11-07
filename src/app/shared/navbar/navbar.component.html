@@ -6,25 +6,22 @@
 
   <div class="nav-list">
     <div class="item" [ngClass]="{ selected: optionSelected === 'principal' }">
-      <p (click)="toNavigate('principal')" class="text-bold text-medium">
-        Principal
-      </p>
+      <p (click)="toNavigate('principal')" class="text-bold">Principal</p>
     </div>
     <div class="item" [ngClass]="{ selected: optionSelected === 'logs' }">
-      <p (click)="toNavigate('logs')" class="text-bold text-medium">Logs</p>
+      <p (click)="toNavigate('logs')" class="text-bold">Logs</p>
     </div>
     <div class="item" [ngClass]="{ selected: optionSelected === 'adUnits' }">
-      <p (click)="toNavigate('adUnits')" class="text-bold text-medium">
-        AdUnits
-      </p>
+      <p (click)="toNavigate('adUnits')" class="text-bold">AdUnits</p>
+    </div>
+    <div class="item" [ngClass]="{ selected: optionSelected === 'adSize' }">
+      <p (click)="toModal('adSize')" class="text-bold">AdSize</p>
     </div>
     <div class="item" [ngClass]="{ selected: optionSelected === 'placements' }">
-      <p (click)="toNavigate('placements')" class="text-bold text-medium">
-        Placements
-      </p>
+      <p (click)="toNavigate('placements')" class="text-bold">Placements</p>
     </div>
     <div class="item">
-      <p (click)="logout()" class="text-bold text-medium">Cerrar Sesión</p>
+      <p (click)="logout()" class="text-bold">Cerrar Sesión</p>
     </div>
   </div>
 </div>

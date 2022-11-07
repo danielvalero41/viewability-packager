@@ -48,7 +48,7 @@ export class ListAdUnitSizesComponent implements OnInit {
       // // debugger;
     }
 
-    if (changes.listAdSize.currentValue?.length !== 0) {
+    if (changes?.listAdSize.currentValue?.length !== 0) {
       this.listAdSize = changes.listAdSize?.currentValue;
       if (this.listAdSize) {
         this.fixList();
@@ -71,7 +71,6 @@ export class ListAdUnitSizesComponent implements OnInit {
   }
 
   fixListComplet() {
-    // // debugger;
     if (this.listAdSize && this.listCompleta) {
       this.listAdSize.forEach((element) => {
         delete element.selected;
@@ -89,9 +88,10 @@ export class ListAdUnitSizesComponent implements OnInit {
           element.selected = false;
         }
       });
-      // // debugger;
+      // console.log(this.listCompleta);
+
+      // debugger;
     }
-    // // debugger;
   }
 
   fixList() {
@@ -117,7 +117,6 @@ export class ListAdUnitSizesComponent implements OnInit {
     this.listAdSize = this.listCompleta;
     this.listAdSize = this.listAdSize.filter((x) => x.selected === true);
 
-    // debugger;
     this.changeData.emit(this.listAdSize);
     this.closeModal.emit(false);
   }

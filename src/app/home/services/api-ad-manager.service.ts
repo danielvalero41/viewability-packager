@@ -9,6 +9,7 @@ import { map } from 'rxjs/operators';
 })
 export class ApiAdManagerService {
   linkSelected: string;
+  updateListFav = new Subject();
 
   parentId = new Subject<any>();
   _baseURL: string =
@@ -196,9 +197,7 @@ export class ApiAdManagerService {
   }
 
   adUnitsConfig(): Observable<any> {
-    const url = `${
-      this._baseURL
-    }/ad-units/config?key=${this.apiLogin.getKeyToken()}`;
+    const url = `http://localhost:5000/api/my-ad-manager/ad-units/config?key=${this.apiLogin.getKeyToken()}`;
 
     return this.http
       .get(url, {
@@ -347,6 +346,34 @@ export class ApiAdManagerService {
     const url = `${
       this._baseURL
     }/list-rules?key=${this.apiLogin.getKeyToken()}`;
+
+    return this.http
+      .post(url, body, {
+        headers: new HttpHeaders({
+          Accept: '*/*',
+        }),
+      })
+      .pipe(map((data) => data));
+  }
+
+  listAdSizesFav(): Observable<any> {
+    const url = `${
+      this._baseURL
+    }/ad-units/sizes?key=${this.apiLogin.getKeyToken()}`;
+
+    return this.http
+      .get(url, {
+        headers: new HttpHeaders({
+          Accept: '*/*',
+        }),
+      })
+      .pipe(map((data) => data));
+  }
+
+  updateListAdSizesFav(body): Observable<any> {
+    const url = `${
+      this._baseURL
+    }/cargar-sizes-mongo?key=${this.apiLogin.getKeyToken()}`;
 
     return this.http
       .post(url, body, {

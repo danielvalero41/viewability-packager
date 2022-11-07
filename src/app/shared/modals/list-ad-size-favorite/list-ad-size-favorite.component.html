@@ -1,0 +1,25 @@
+<div class="container-modal">
+  <div nz-row nzAlign="middle" nzJustify="center">
+    <div nz-col nzSpan="14">
+      <p class="text-bold text-medium text-primary text-center">
+        Lista de Adsizes más usados
+      </p>
+    </div>
+  </div>
+
+  <div class="mt-3">
+    <list-ad-unit-sizes
+      [listCompleta]="listAdSizeCompleta"
+      [listAdSize]="listAdSize"
+      [isModal]="true"
+      (closeModal)="closeModal($event)"
+      (changeData)="changeData($event)"
+    ></list-ad-unit-sizes>
+  </div>
+</div>
+
+<ng-template #closeIcon>
+  <div class="close-modal">
+    <i class="fas fa-times"></i>
+  </div>
+</ng-template>
