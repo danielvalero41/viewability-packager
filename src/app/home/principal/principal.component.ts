@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { UpChangeManagerComponent } from 'src/app/shared/modals/up-change-manager/up-change-manager.component';
 import { SincronizarComponent } from 'src/app/shared/modals/sincronizar/sincronizar.component';
+import { LoginService } from 'src/app/auth/services/login.service';
 
 @Component({
   selector: 'app-principal',
@@ -58,6 +59,7 @@ export class PrincipalComponent implements OnInit {
 
   constructor(
     public apiAdManager: ApiAdManagerService,
+    public apiLogin: LoginService,
     public fb: FormBuilder,
     private modalService: NzModalService
   ) {
@@ -163,7 +165,9 @@ export class PrincipalComponent implements OnInit {
 
   downLoadReport() {
     this.apiBusyButton = true;
-    const url = `http://3.13.69.0:80/api/my-ad-manager/reporte`;
+    const url = `${
+      this.apiAdManager._baseURL
+    }/reporte?key=${this.apiLogin.getKeyToken()}`;
     fetch(url, {
       method: 'GET',
       headers: new Headers({

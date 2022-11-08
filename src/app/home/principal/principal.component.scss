@@ -119,15 +119,6 @@
     height: 60px;
     font-weight: bold;
 
-    .count1 {
-      border: 2px solid $secondary;
-      border-radius: 20px;
-      color: $secondary;
-      padding: 5px;
-      width: 40px;
-      text-align: center;
-    }
-
     .count2 {
       border: 2px solid $danger;
       border-radius: 20px;
@@ -150,15 +141,6 @@
       border: 2px solid $warning;
       border-radius: 20px;
       color: $warning;
-      padding: 5px;
-      width: 40px;
-      text-align: center;
-    }
-
-    .count5 {
-      border: 2px solid $primary;
-      border-radius: 20px;
-      color: $primary;
       padding: 5px;
       width: 40px;
       text-align: center;

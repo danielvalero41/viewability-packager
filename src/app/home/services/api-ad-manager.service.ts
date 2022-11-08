@@ -197,7 +197,9 @@ export class ApiAdManagerService {
   }
 
   adUnitsConfig(): Observable<any> {
-    const url = `http://localhost:5000/api/my-ad-manager/ad-units/config?key=${this.apiLogin.getKeyToken()}`;
+    const url = `${
+      this._baseURL
+    }/ad-units/config?key=${this.apiLogin.getKeyToken()}`;
 
     return this.http
       .get(url, {
