@@ -1,15 +1,17 @@
 <div class="container-modal">
   <div nz-row nzAlign="middle" nzJustify="center">
     <div nz-col nzSpan="18">
-      <p class="text-bold text-medium text-primary text-center">Error</p>
+      <p class="text-bold text-medium text-primary text-center">
+        ¡Proceso Activo!
+      </p>
     </div>
   </div>
 
   <div class="mt-4" nz-row nzAlign="middle" nzJustify="center">
     <div nz-col class="text-center">
-      <p>{{ solicitRecibida }}</p>
-      <button class="btn btn-primary mt-4" (click)="closeModal()">
-        aceptar
+      <p>Hay un proceso en ejecución espera un momento para continuar</p>
+      <button class="btn btn-primary test mt-4" (click)="closeModal()">
+        Ok
       </button>
     </div>
   </div>

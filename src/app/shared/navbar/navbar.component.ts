@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ApiAdManagerService } from 'src/app/home/services/api-ad-manager.service';
 import { ListAdSizeFavoriteComponent } from '../modals/list-ad-size-favorite/list-ad-size-favorite.component';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { ErrorComponent } from '../modals/error/error.component';
 
 @Component({
   selector: 'navbar',
@@ -26,8 +27,34 @@ export class NavbarComponent implements OnInit {
   }
 
   toNavigate(link) {
-    this.optionSelected = link;
-    this.router.navigate(['home/' + link]);
+    if (link === 'placements' || link === 'adUnits') {
+      this.apiAdManager.checkState().subscribe(
+        (resp) => {
+          if (resp.message.adunits === 1 && resp.message.placements === 1) {
+            this.optionSelected = link;
+            this.router.navigate(['home/' + link]);
+          } else {
+            this.modalService.create({
+              nzMaskClosable: false,
+              nzCancelText: null,
+              nzOkText: null,
+              nzClosable: false,
+              nzFooter: null,
+              nzOnCancel: (x) => {
+                console.log('cerrar');
+              },
+              nzContent: ErrorComponent,
+            });
+          }
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    } else {
+      this.optionSelected = link;
+      this.router.navigate(['home/' + link]);
+    }
   }
 
   logout() {

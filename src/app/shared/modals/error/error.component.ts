@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
-  selector: 'app-error',
+  selector: 'error-process',
   templateUrl: './error.component.html',
   styleUrls: ['./error.component.scss'],
 })

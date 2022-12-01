@@ -184,6 +184,13 @@ button[disabled] {
   }
 }
 
+button {
+  &:focus-visible {
+    border-color: none;
+    outline: none;
+  }
+}
+
 .btn-primary {
   background-color: $primary;
   border-color: $primary;

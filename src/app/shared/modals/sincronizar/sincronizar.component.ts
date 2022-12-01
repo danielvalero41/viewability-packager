@@ -8,8 +8,6 @@ import { ApiAdManagerService } from 'src/app/home/services/api-ad-manager.servic
   styleUrls: ['./sincronizar.component.scss'],
 })
 export class SincronizarComponent implements OnInit {
-  apiBusy: boolean = true;
-
   constructor(
     public apiAdManager: ApiAdManagerService,
     private modal: NzModalRef
@@ -22,7 +20,6 @@ export class SincronizarComponent implements OnInit {
         this.apiAdManager.resetPlacements().subscribe(
           (resp) => {
             console.log(resp);
-            this.apiBusy = false;
           },
           (error) => {
             console.log(error);

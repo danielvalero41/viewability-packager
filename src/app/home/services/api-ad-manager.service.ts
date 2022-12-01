@@ -385,4 +385,18 @@ export class ApiAdManagerService {
       })
       .pipe(map((data) => data));
   }
+
+  checkState(): Observable<any> {
+    const url = `${
+      this._baseURL
+    }/checkstate?key=${this.apiLogin.getKeyToken()}`;
+
+    return this.http
+      .get(url, {
+        headers: new HttpHeaders({
+          Accept: '*/*',
+        }),
+      })
+      .pipe(map((data) => data));
+  }
 }
